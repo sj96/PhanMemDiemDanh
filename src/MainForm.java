@@ -12,6 +12,9 @@ public class MainForm extends javax.swing.JFrame {
     
     public MainForm() {
         initComponents();
+        
+        //test su kien
+        quanLiSuKien1.loader();
     }
 
     /**
@@ -34,7 +37,7 @@ public class MainForm extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         Body = new javax.swing.JPanel();
-        dangkythamgia1 = new DiemDanh.Dangkythamgia();
+        quanLiSuKien1 = new DiemDanh.QuanLiSuKien();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -80,7 +83,7 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         Menu.setBackground(new java.awt.Color(0, 153, 255));
-        Menu.setLayout(new java.awt.GridLayout());
+        Menu.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton2.setBackground(new java.awt.Color(0, 153, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -116,7 +119,7 @@ public class MainForm extends javax.swing.JFrame {
         Body.setMinimumSize(new java.awt.Dimension(996, 511));
         Body.setPreferredSize(new java.awt.Dimension(0, 425));
         Body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        Body.add(dangkythamgia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        Body.add(quanLiSuKien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,7 +182,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel Body;
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Menu;
-    private DiemDanh.Dangkythamgia dangkythamgia1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -188,5 +190,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private DiemDanh.QuanLiSuKien quanLiSuKien1;
     // End of variables declaration//GEN-END:variables
 }

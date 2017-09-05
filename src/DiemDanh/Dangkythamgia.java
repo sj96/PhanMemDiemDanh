@@ -17,6 +17,10 @@ public class Dangkythamgia extends javax.swing.JPanel {
     public Dangkythamgia() {
         initComponents();
     }
+    
+    public void loader (int mask, String tenSK){
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,7 +204,6 @@ public class Dangkythamgia extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TimKiemBtn1)
                     .addComponent(TimKiemBtn2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(232, 232, 232)
