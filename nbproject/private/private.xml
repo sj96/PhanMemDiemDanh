@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/PhanMemDiemDanh/src/DiemDanh/QuanLiCanBo.java</file>
-            <file>file:/D:/Project/PhanMemDiemDanh/src/DiemDanh/DiemDanh.java</file>
-            <file>file:/D:/Project/PhanMemDiemDanh/src/DiemDanh/QuanLiSuKien.java</file>
-            <file>file:/D:/Project/PhanMemDiemDanh/src/DiemDanh/Dangkythamgia.java</file>
-            <file>file:/D:/Project/PhanMemDiemDanh/src/DiemDanh/DangNhap.java</file>
-            <file>file:/D:/Project/PhanMemDiemDanh/src/MainForm.java</file>
-            <file>file:/D:/Project/PhanMemDiemDanh/src/DiemDanh/QuanLiSinhVien.java</file>
+            <file>file:/D:/GITHUB/PhanMemDiemDanh/src/DiemDanh/QuanLiCanBo.java</file>
+            <file>file:/D:/GITHUB/PhanMemDiemDanh/src/DiemDanh/QuanLiSuKien.java</file>
+            <file>file:/D:/GITHUB/PhanMemDiemDanh/src/DiemDanh/QuanLiSinhVien.java</file>
+            <file>file:/D:/GITHUB/PhanMemDiemDanh/src/DiemDanh/Conection.java</file>
         </group>
     </open-files>
 </project-private>

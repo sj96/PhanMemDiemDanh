@@ -1,20 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author trana
- */
+
+
+
+import DiemDanh.DiemDanh;
+import DiemDanh.QuanLiCanBo;
+import DiemDanh.QuanLiSinhVien;
+import DiemDanh.QuanLiSuKien;
+
+
+
 public class MainForm extends javax.swing.JFrame {
 
     
     public MainForm() {
         initComponents();
-        
-        //test su kien
-        quanLiSuKien1.loader();
+        DiemDanh DD = new DiemDanh();
+        pnBody.removeAll();
+        pnBody.add(DD);
+        pnBody.validate();
+        this.setResizable(false);
     }
 
     /**
@@ -29,15 +32,15 @@ public class MainForm extends javax.swing.JFrame {
         Header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnDangNhap = new javax.swing.JButton();
         Menu = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnDiemDanh = new javax.swing.JButton();
+        btnQunLiSuKien = new javax.swing.JButton();
+        btnQuanLiCanBo = new javax.swing.JButton();
+        btnQuanLySinhVien = new javax.swing.JButton();
+        btnThongKe = new javax.swing.JButton();
         Body = new javax.swing.JPanel();
-        quanLiSuKien1 = new DiemDanh.QuanLiSuKien();
+        pnBody = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -50,12 +53,10 @@ public class MainForm extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("HỆ THỐNG ĐIỂM DANH");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\trana\\Pictures\\logo.png")); // NOI18N
-
-        jButton1.setBackground(new java.awt.Color(51, 153, 255));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Đăng Nhập");
+        btnDangNhap.setBackground(new java.awt.Color(51, 153, 255));
+        btnDangNhap.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
+        btnDangNhap.setText("Đăng Nhập");
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
@@ -66,8 +67,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(93, 93, 93)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addComponent(btnDangNhap)
                 .addContainerGap())
         );
         HeaderLayout.setVerticalGroup(
@@ -78,48 +79,70 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(HeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Menu.setBackground(new java.awt.Color(0, 153, 255));
         Menu.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton2.setBackground(new java.awt.Color(0, 153, 255));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Điểm Danh");
-        Menu.add(jButton2);
+        btnDiemDanh.setBackground(new java.awt.Color(0, 153, 255));
+        btnDiemDanh.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnDiemDanh.setForeground(new java.awt.Color(255, 255, 255));
+        btnDiemDanh.setText("Điểm Danh");
+        btnDiemDanh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiemDanhActionPerformed(evt);
+            }
+        });
+        Menu.add(btnDiemDanh);
 
-        jButton3.setBackground(new java.awt.Color(0, 153, 255));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Quản lí Sự Kiện");
-        Menu.add(jButton3);
+        btnQunLiSuKien.setBackground(new java.awt.Color(0, 153, 255));
+        btnQunLiSuKien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnQunLiSuKien.setForeground(new java.awt.Color(255, 255, 255));
+        btnQunLiSuKien.setText("Quản lí Sự Kiện");
+        btnQunLiSuKien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQunLiSuKienActionPerformed(evt);
+            }
+        });
+        Menu.add(btnQunLiSuKien);
 
-        jButton4.setBackground(new java.awt.Color(0, 153, 255));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Quản lí Cán Bộ");
-        Menu.add(jButton4);
+        btnQuanLiCanBo.setBackground(new java.awt.Color(0, 153, 255));
+        btnQuanLiCanBo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnQuanLiCanBo.setForeground(new java.awt.Color(255, 255, 255));
+        btnQuanLiCanBo.setText("Quản lí Cán Bộ");
+        btnQuanLiCanBo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLiCanBoActionPerformed(evt);
+            }
+        });
+        Menu.add(btnQuanLiCanBo);
 
-        jButton5.setBackground(new java.awt.Color(0, 153, 255));
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Quản lí Sinh Viên");
-        Menu.add(jButton5);
+        btnQuanLySinhVien.setBackground(new java.awt.Color(0, 153, 255));
+        btnQuanLySinhVien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnQuanLySinhVien.setForeground(new java.awt.Color(255, 255, 255));
+        btnQuanLySinhVien.setText("Quản lí Sinh Viên");
+        btnQuanLySinhVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLySinhVienActionPerformed(evt);
+            }
+        });
+        Menu.add(btnQuanLySinhVien);
 
-        jButton6.setBackground(new java.awt.Color(0, 153, 255));
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Thống Kê");
-        Menu.add(jButton6);
+        btnThongKe.setBackground(new java.awt.Color(0, 153, 255));
+        btnThongKe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnThongKe.setForeground(new java.awt.Color(255, 255, 255));
+        btnThongKe.setText("Thống Kê");
+        Menu.add(btnThongKe);
 
         Body.setBackground(new java.awt.Color(255, 255, 255));
         Body.setMinimumSize(new java.awt.Dimension(996, 511));
         Body.setPreferredSize(new java.awt.Dimension(0, 425));
         Body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        Body.add(quanLiSuKien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        pnBody.setLayout(new java.awt.BorderLayout());
+        Body.add(pnBody, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 510));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,6 +164,34 @@ public class MainForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnQunLiSuKienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQunLiSuKienActionPerformed
+        QuanLiSuKien QLSK = new QuanLiSuKien();
+        pnBody.removeAll();
+        pnBody.add(QLSK);
+        pnBody.validate();
+    }//GEN-LAST:event_btnQunLiSuKienActionPerformed
+
+    private void btnDiemDanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiemDanhActionPerformed
+        DiemDanh DD = new DiemDanh();
+        pnBody.removeAll();
+        pnBody.add(DD);
+        pnBody.validate();
+    }//GEN-LAST:event_btnDiemDanhActionPerformed
+
+    private void btnQuanLiCanBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLiCanBoActionPerformed
+        QuanLiCanBo QLCB = new QuanLiCanBo();
+        pnBody.removeAll();
+        pnBody.add(QLCB);
+        pnBody.validate();
+    }//GEN-LAST:event_btnQuanLiCanBoActionPerformed
+
+    private void btnQuanLySinhVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLySinhVienActionPerformed
+        QuanLiSinhVien QLSV = new QuanLiSinhVien();
+        pnBody.removeAll();
+        pnBody.add(QLSV);
+        pnBody.validate();
+    }//GEN-LAST:event_btnQuanLySinhVienActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,14 +233,14 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel Body;
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Menu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnDangNhap;
+    private javax.swing.JButton btnDiemDanh;
+    private javax.swing.JButton btnQuanLiCanBo;
+    private javax.swing.JButton btnQuanLySinhVien;
+    private javax.swing.JButton btnQunLiSuKien;
+    private javax.swing.JButton btnThongKe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private DiemDanh.QuanLiSuKien quanLiSuKien1;
+    private javax.swing.JPanel pnBody;
     // End of variables declaration//GEN-END:variables
 }
