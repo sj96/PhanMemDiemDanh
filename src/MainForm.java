@@ -12,9 +12,6 @@ public class MainForm extends javax.swing.JFrame {
     
     public MainForm() {
         initComponents();
-        
-        //test su kien
-        quanLiSuKien1.loader();
     }
 
     /**
@@ -34,10 +31,9 @@ public class MainForm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         Body = new javax.swing.JPanel();
-        quanLiSuKien1 = new DiemDanh.QuanLiSuKien();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -83,6 +79,9 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         Menu.setBackground(new java.awt.Color(0, 153, 255));
+        Menu.setMaximumSize(new java.awt.Dimension(996, 32767));
+        Menu.setMinimumSize(new java.awt.Dimension(996, 25));
+        Menu.setPreferredSize(new java.awt.Dimension(996, 25));
         Menu.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton2.setBackground(new java.awt.Color(0, 153, 255));
@@ -100,26 +99,27 @@ public class MainForm extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(0, 153, 255));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Quản lí Cán Bộ");
+        jButton4.setText("Quản lí Cán Bộ - Sinh Viên");
         Menu.add(jButton4);
-
-        jButton5.setBackground(new java.awt.Color(0, 153, 255));
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Quản lí Sinh Viên");
-        Menu.add(jButton5);
 
         jButton6.setBackground(new java.awt.Color(0, 153, 255));
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Thống Kê");
+        jButton6.setText("Quản lí Khoa - Đơn vị");
+        jButton6.setToolTipText("");
         Menu.add(jButton6);
 
+        jButton7.setBackground(new java.awt.Color(0, 153, 255));
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Thống Kê");
+        Menu.add(jButton7);
+
         Body.setBackground(new java.awt.Color(255, 255, 255));
-        Body.setMinimumSize(new java.awt.Dimension(996, 511));
-        Body.setPreferredSize(new java.awt.Dimension(0, 425));
+        Body.setMaximumSize(new java.awt.Dimension(1060, 511));
+        Body.setMinimumSize(new java.awt.Dimension(1060, 511));
+        Body.setPreferredSize(new java.awt.Dimension(1060, 511));
         Body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        Body.add(quanLiSuKien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,7 +136,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Body, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
+                .addComponent(Body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -186,10 +186,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private DiemDanh.QuanLiSuKien quanLiSuKien1;
     // End of variables declaration//GEN-END:variables
 }
