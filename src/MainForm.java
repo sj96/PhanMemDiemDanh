@@ -1,23 +1,9 @@
 
-
-
-import DiemDanh.DiemDanh;
-import DiemDanh.QuanLiCanBo;
-import DiemDanh.QuanLiSinhVien;
-import DiemDanh.QuanLiSuKien;
-
-
-
 public class MainForm extends javax.swing.JFrame {
 
     
     public MainForm() {
         initComponents();
-        DiemDanh DD = new DiemDanh();
-        pnBody.removeAll();
-        pnBody.add(DD);
-        pnBody.validate();
-        this.setResizable(false);
     }
 
     /**
@@ -40,7 +26,7 @@ public class MainForm extends javax.swing.JFrame {
         btnQuanLySinhVien = new javax.swing.JButton();
         btnThongKe = new javax.swing.JButton();
         Body = new javax.swing.JPanel();
-        pnBody = new javax.swing.JPanel();
+        baoCao21 = new DiemDanh.BaoCao2();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -112,6 +98,7 @@ public class MainForm extends javax.swing.JFrame {
         btnQuanLiCanBo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnQuanLiCanBo.setForeground(new java.awt.Color(255, 255, 255));
         btnQuanLiCanBo.setText("Quản lí Cán Bộ");
+        btnQuanLiCanBo.setToolTipText("");
         btnQuanLiCanBo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuanLiCanBoActionPerformed(evt);
@@ -133,16 +120,15 @@ public class MainForm extends javax.swing.JFrame {
         btnThongKe.setBackground(new java.awt.Color(0, 153, 255));
         btnThongKe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnThongKe.setForeground(new java.awt.Color(255, 255, 255));
-        btnThongKe.setText("Thống Kê");
+        btnThongKe.setText("Báo cáo");
+        btnThongKe.setToolTipText("");
         Menu.add(btnThongKe);
 
         Body.setBackground(new java.awt.Color(255, 255, 255));
         Body.setMinimumSize(new java.awt.Dimension(996, 511));
         Body.setPreferredSize(new java.awt.Dimension(0, 425));
         Body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        pnBody.setLayout(new java.awt.BorderLayout());
-        Body.add(pnBody, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 510));
+        Body.add(baoCao21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,31 +152,19 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQunLiSuKienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQunLiSuKienActionPerformed
-        QuanLiSuKien QLSK = new QuanLiSuKien();
-        pnBody.removeAll();
-        pnBody.add(QLSK);
-        pnBody.validate();
+
     }//GEN-LAST:event_btnQunLiSuKienActionPerformed
 
     private void btnDiemDanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiemDanhActionPerformed
-        DiemDanh DD = new DiemDanh();
-        pnBody.removeAll();
-        pnBody.add(DD);
-        pnBody.validate();
+        
     }//GEN-LAST:event_btnDiemDanhActionPerformed
 
     private void btnQuanLiCanBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLiCanBoActionPerformed
-        QuanLiCanBo QLCB = new QuanLiCanBo();
-        pnBody.removeAll();
-        pnBody.add(QLCB);
-        pnBody.validate();
+        
     }//GEN-LAST:event_btnQuanLiCanBoActionPerformed
 
     private void btnQuanLySinhVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLySinhVienActionPerformed
-        QuanLiSinhVien QLSV = new QuanLiSinhVien();
-        pnBody.removeAll();
-        pnBody.add(QLSV);
-        pnBody.validate();
+        
     }//GEN-LAST:event_btnQuanLySinhVienActionPerformed
 
     /**
@@ -233,6 +207,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel Body;
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Menu;
+    private DiemDanh.BaoCao2 baoCao21;
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JButton btnDiemDanh;
     private javax.swing.JButton btnQuanLiCanBo;
@@ -241,6 +216,5 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnThongKe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel pnBody;
     // End of variables declaration//GEN-END:variables
 }
