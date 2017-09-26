@@ -55,8 +55,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(1060, 511));
-        setPreferredSize(new java.awt.Dimension(1060, 511));
+        setPreferredSize(new java.awt.Dimension(996, 496));
 
         SVTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -280,7 +279,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                         .addComponent(TimKiemBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -295,7 +294,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                             .addComponent(SuaBtn)
                             .addComponent(XoaBtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
