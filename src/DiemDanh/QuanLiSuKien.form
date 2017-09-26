@@ -33,11 +33,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-<<<<<<< HEAD
                       <Component id="btnDSThamGia" min="-2" max="-2" attributes="0"/>
-=======
-                      <Component id="SuaBtn1" min="-2" max="-2" attributes="0"/>
->>>>>>> parent of c363de5... update GUI
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSua" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -45,11 +41,7 @@
                       <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                       <Component id="txtTimKiem" min="-2" pref="178" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-<<<<<<< HEAD
                       <Component id="btnTimKiem" min="-2" max="-2" attributes="0"/>
-=======
-                      <Component id="TimKiemBtn" min="-2" max="-2" attributes="0"/>
->>>>>>> parent of c363de5... update GUI
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
