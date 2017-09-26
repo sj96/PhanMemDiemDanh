@@ -31,6 +31,13 @@ public class ChonSK extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(null);
@@ -46,6 +53,27 @@ public class ChonSK extends javax.swing.JPanel {
 
         jButton1.setText("<html> <center><b style=\"color:red; font-size:16\">Ngày Hội Việc Làm</b> <br> <p>7:00 đến 11:00</p></center> </html>");
         jPanel2.add(jButton1);
+
+        jButton2.setText("<html> <center><b style=\"color:red; font-size:16\">Ngày Hội Việc Làm</b> <br> <p>7:00 đến 11:00</p></center> </html>");
+        jPanel2.add(jButton2);
+
+        jButton3.setText("<html> <center><b style=\"color:red; font-size:16\">Ngày Hội Việc Làm</b> <br> <p>7:00 đến 11:00</p></center> </html>");
+        jPanel2.add(jButton3);
+
+        jButton4.setText("<html> <center><b style=\"color:red; font-size:16\">Ngày Hội Việc Làm</b> <br> <p>7:00 đến 11:00</p></center> </html>");
+        jPanel2.add(jButton4);
+
+        jButton5.setText("<html> <center><b style=\"color:red; font-size:16\">Ngày Hội Việc Làm</b> <br> <p>7:00 đến 11:00</p></center> </html>");
+        jPanel2.add(jButton5);
+
+        jButton6.setText("<html> <center><b style=\"color:red; font-size:16\">Ngày Hội Việc Làm</b> <br> <p>7:00 đến 11:00</p></center> </html>");
+        jPanel2.add(jButton6);
+
+        jButton7.setText("<html> <center><b style=\"color:red; font-size:16\">Ngày Hội Việc Làm</b> <br> <p>7:00 đến 11:00</p></center> </html>");
+        jPanel2.add(jButton7);
+
+        jButton8.setText("<html> <center><b style=\"color:red; font-size:16\">Ngày Hội Việc Làm</b> <br> <p>7:00 đến 11:00</p></center> </html>");
+        jPanel2.add(jButton8);
 
         jScrollPane1.setViewportView(jPanel2);
 
@@ -74,6 +102,13 @@ public class ChonSK extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
