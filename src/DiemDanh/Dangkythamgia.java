@@ -183,12 +183,12 @@ public class Dangkythamgia extends javax.swing.JPanel {
         TimKiemBtn1.setBackground(new java.awt.Color(51, 153, 255));
         TimKiemBtn1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         TimKiemBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        TimKiemBtn1.setText("+");
+        TimKiemBtn1.setText("<");
 
         TimKiemBtn2.setBackground(new java.awt.Color(51, 153, 255));
         TimKiemBtn2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         TimKiemBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        TimKiemBtn2.setText("-");
+        TimKiemBtn2.setText(">");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -200,11 +200,10 @@ public class Dangkythamgia extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(CTSuKien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TimKiemBtn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TimKiemBtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TimKiemBtn1)
+                    .addComponent(TimKiemBtn2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(232, 232, 232)
