@@ -126,7 +126,8 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         btnDSThamGia = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(996, 496));
+        setMinimumSize(new java.awt.Dimension(1060, 511));
+        setPreferredSize(new java.awt.Dimension(1060, 511));
 
         tblSuKien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -328,10 +329,15 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                         .addGap(18, 18, 18)
                         .addComponent(btnDSThamGia)
+=======
+                        .addComponent(SuaBtn1)
+>>>>>>> master
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSua)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -339,11 +345,15 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                         .addGap(103, 103, 103)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
+<<<<<<< HEAD
                         .addComponent(btnTimKiem)
                         .addGap(0, 0, Short.MAX_VALUE))
+=======
+                        .addComponent(TimKiemBtn)
+                        .addGap(0, 78, Short.MAX_VALUE))
+>>>>>>> master
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
