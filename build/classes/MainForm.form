@@ -6,6 +6,9 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
     </Property>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[996, 662]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -38,7 +41,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="Menu" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Body" pref="511" max="32767" attributes="0"/>
+              <Component id="Body" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -59,7 +62,7 @@
                   <Component id="jLabel3" min="-2" pref="111" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="433" max="-2" attributes="0"/>
-                  <EmptySpace pref="186" max="32767" attributes="0"/>
+                  <EmptySpace pref="190" max="32767" attributes="0"/>
                   <Component id="btnDangNhap" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -221,13 +224,22 @@
           <Dimension value="[996, 511]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[0, 425]"/>
+          <Dimension value="[996, 511]"/>
         </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
+      <SubComponents>
+        <Component class="DiemDanh.Dangkythamgia" name="dangkythamgia2">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="0" y="0" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+      </SubComponents>
     </Container>
   </SubComponents>
 </Form>
