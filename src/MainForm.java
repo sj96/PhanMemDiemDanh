@@ -26,7 +26,6 @@ public class MainForm extends javax.swing.JFrame {
         btnQuanLySinhVien = new javax.swing.JButton();
         btnThongKe = new javax.swing.JButton();
         Body = new javax.swing.JPanel();
-        baoCao21 = new DiemDanh.BaoCao2();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -128,7 +127,6 @@ public class MainForm extends javax.swing.JFrame {
         Body.setMinimumSize(new java.awt.Dimension(996, 511));
         Body.setPreferredSize(new java.awt.Dimension(0, 425));
         Body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        Body.add(baoCao21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,7 +205,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel Body;
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Menu;
-    private DiemDanh.BaoCao2 baoCao21;
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JButton btnDiemDanh;
     private javax.swing.JButton btnQuanLiCanBo;
