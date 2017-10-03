@@ -28,7 +28,11 @@ public class QuanLiSuKien extends javax.swing.JPanel {
     
     public QuanLiSuKien() {
         initComponents();
+<<<<<<< HEAD
         clearTable();
+=======
+        ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         loadTable();
     }
     
@@ -432,7 +436,11 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
+<<<<<<< HEAD
                         .addComponent(btnDSThamGia)
+=======
+                        .addComponent(SuaBtn1)
+>>>>>>> parent of c363de5... update GUI
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSua)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -440,7 +448,11 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                         .addGap(103, 103, 103)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
+<<<<<<< HEAD
                         .addComponent(btnTimKiem)
+=======
+                        .addComponent(TimKiemBtn)
+>>>>>>> parent of c363de5... update GUI
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
@@ -486,6 +498,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                    if(rs.next()){
                        JOptionPane.showMessageDialog(null, "Mã sự kiện đã tồn tại!!");
                    }else{
+<<<<<<< HEAD
                        if(kTraNgayHT() == true){
                             if(kTraNgay() == true){
                                 Them();
@@ -500,6 +513,19 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                         
                        }else{
                            JOptionPane.showMessageDialog(null, "Ngày không hợp lý vui lòng chọn lại!");
+=======
+                       if(kTraNgay() == true){
+                           Them();
+                           ClearTable();
+                           loadTable();
+                           txtMaSuKien.setText("");
+                           txtTenSuKien.setText("");
+                           JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
+                       }else{
+                           JOptionPane.showMessageDialog(null, "Ngày không hợp lý vui lòng chọn lại!");
+                       }
+                        
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                        }
                    }
                        
@@ -509,6 +535,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnTaoSKBtnActionPerformed
 
+<<<<<<< HEAD
     private boolean kTraNgayHT(){
         boolean ktra = false;
          Date date = new Date();
@@ -555,6 +582,8 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         return ktra;
     }
     
+=======
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
     private boolean kTraNgay(){
         boolean ktra = false;
         SimpleDateFormat ngay = new SimpleDateFormat("dd");
@@ -659,14 +688,24 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         if(txtTimKiem.getText().equals("")){
            JOptionPane.showMessageDialog(null, "Tìm kiếm không được trống");
         }else{
+<<<<<<< HEAD
             clearTable();
+=======
+            ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
             Tim();
             int Count = tblSuKien.getRowCount();
             if(Count == 0){
                 JOptionPane.showMessageDialog(null, "Không tìm được dữ liệu này!");
+<<<<<<< HEAD
                 clearTable();
             }else{
                 clearTable();
+=======
+                ClearTable();
+            }else{
+                ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                 Tim();
                 JOptionPane.showMessageDialog(null, "Tìm kiếm dữ liệu thành công!");
            }
@@ -674,7 +713,11 @@ public class QuanLiSuKien extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
+<<<<<<< HEAD
         clearTable();
+=======
+        ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         loadTable();
         txtTimKiem.setText("");
     }//GEN-LAST:event_txtTimKiemFocusGained
@@ -686,7 +729,11 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         }else{
             try {
                 Sua();
+<<<<<<< HEAD
                 clearTable();
+=======
+                ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                 loadTable();
             } catch (ParseException ex) {
                 Logger.getLogger(QuanLiSuKien.class.getName()).log(Level.SEVERE, null, ex);
@@ -704,7 +751,11 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                 try {
                    Xoa();
                    JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công!");
+<<<<<<< HEAD
                    clearTable();
+=======
+                   ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                    loadTable();
                    textRong();
                } catch (ParseException ex) {

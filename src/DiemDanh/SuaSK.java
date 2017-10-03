@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+<<<<<<< HEAD
 import java.util.Date;
+=======
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
 import javax.swing.JOptionPane;
 
 /**
@@ -83,12 +86,20 @@ public class SuaSK extends javax.swing.JFrame {
         spnGioBD.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         spnGioBD.setModel(new javax.swing.SpinnerDateModel());
         spnGioBD.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+<<<<<<< HEAD
         spnGioBD.setEditor(new javax.swing.JSpinner.DateEditor(spnGioBD, "HH:mm"));
+=======
+        spnGioBD.setEditor(new javax.swing.JSpinner.DateEditor(spnGioBD, "HH:00"));
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
 
         spnGioKT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         spnGioKT.setModel(new javax.swing.SpinnerDateModel());
         spnGioKT.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+<<<<<<< HEAD
         spnGioKT.setEditor(new javax.swing.JSpinner.DateEditor(spnGioKT, "HH:mm"));
+=======
+        spnGioKT.setEditor(new javax.swing.JSpinner.DateEditor(spnGioKT, "HH:00"));
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
 
         btnLuu.setBackground(new java.awt.Color(51, 153, 255));
         btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -196,8 +207,49 @@ public class SuaSK extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private QuanLiSuKien sk = new QuanLiSuKien();
     private Connection con = null;
+<<<<<<< HEAD
 
     
+=======
+    private void loadTable(){
+         try {
+            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            con = Connect.connect();
+            
+            Statement s = con.createStatement();
+            
+            ResultSet rs = s.executeQuery("SELECT * FROM sukien");
+            String []colsName = {"Mã sự kiện", "Tên sự kiện","Ngày BĐ","Thời gian BĐ","Thời gian KT","Ngày KT"};
+            sk.tableModel.setColumnIdentifiers(colsName); 
+            sk.tblSuKien.setModel(sk.tableModel);
+            while(rs.next()){ 
+                Object rows[] = new Object[6];
+                rows[0] = rs.getString(1);
+                rows[1] = rs.getString(2);  
+                rows[2] = formater.format(rs.getDate(5));
+                rows[3] = format.format(rs.getTime(3));
+                rows[4] = format.format(rs.getTime(4));
+                rows[5] =formater.format(rs.getDate(6));
+                sk.tableModel.addRow(rows);
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void clearTable(){
+        int dem = sk.tblSuKien.getRowCount();
+        try{
+        while (dem > 0 ){
+            sk.tableModel.removeRow(0);
+        }
+        }catch(java.lang.ArrayIndexOutOfBoundsException e){
+            e.getMessage();
+        }
+    }
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
     
     private void Sua(){
         try {
@@ -264,6 +316,7 @@ public class SuaSK extends javax.swing.JFrame {
         return ktra;
     }
     
+<<<<<<< HEAD
     private boolean kTraNgayHT(){
         boolean ktra = false;
          Date date = new Date();
@@ -310,6 +363,8 @@ public class SuaSK extends javax.swing.JFrame {
         return ktra;
     }
     
+=======
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         int n = JOptionPane.showConfirmDialog(null,"Bạn chắc chắn muốn hủy?","THÔNG BÁO",JOptionPane.YES_NO_OPTION);
         if(n == JOptionPane.YES_OPTION){
@@ -319,6 +374,7 @@ public class SuaSK extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+<<<<<<< HEAD
         QuanLiSuKien ql = new QuanLiSuKien();
         if(txtTenSK.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Tên sự kiện không được trống!");
@@ -333,6 +389,17 @@ public class SuaSK extends javax.swing.JFrame {
                 }else{
                     JOptionPane.showMessageDialog(null, "Ngày tháng hoặc giờ không hợp lý!");
                 }
+=======
+        if(txtTenSK.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Tên sự kiện không được trống!");
+        }else{
+            if(kTraNgay() == true){
+                clearTable();
+                Sua();
+                loadTable();
+                JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
+                this.dispose();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
             }else{
                 JOptionPane.showMessageDialog(null, "Ngày tháng hoặc giờ không hợp lý!");
             }

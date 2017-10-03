@@ -27,7 +27,11 @@ public class QuanLiCanBo extends javax.swing.JPanel {
      */
     public QuanLiCanBo() {
         initComponents();
+<<<<<<< HEAD
         clearTable();
+=======
+        ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         loadTable();
         txtMaT.setDocument(new LengthRestrictedDocument(10));
 //        cbbNganh.setEnabled(false);
@@ -246,11 +250,14 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         btnSua.setBackground(new java.awt.Color(51, 153, 255));
         btnSua.setForeground(new java.awt.Color(255, 255, 255));
         btnSua.setText("Sửa");
+<<<<<<< HEAD
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
             }
         });
+=======
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
 
         btnXoa.setBackground(new java.awt.Color(51, 153, 255));
         btnXoa.setForeground(new java.awt.Color(255, 255, 255));
@@ -483,7 +490,11 @@ public class QuanLiCanBo extends javax.swing.JPanel {
     };
     
     private Connection con = null;
+<<<<<<< HEAD
     public void loadTable(){
+=======
+    private void loadTable(){
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
          try {
             con = Connect.connect();
             
@@ -509,7 +520,11 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         }
     } 
     
+<<<<<<< HEAD
     public void clearTable(){
+=======
+    private void ClearTable(){
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         int dem = tblCB.getRowCount();
         try{
         while (dem > 0 ){
@@ -562,6 +577,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         txtMaT.setText((String) MaT);
     }
     
+<<<<<<< HEAD
     private void Sua(){
         SuaTTCb s = new SuaTTCb();
         int i = tblCB.getSelectedRow();
@@ -580,6 +596,8 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         s.setVisible(true);
     }
     
+=======
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
     private void Tim(){
         try {
             
@@ -652,7 +670,11 @@ public class QuanLiCanBo extends javax.swing.JPanel {
                    }else{
                       
                            Them();
+<<<<<<< HEAD
                            clearTable();
+=======
+                           ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                            loadTable();
                            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
                            textRong();
@@ -677,14 +699,24 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         if(txtTim.getText().equals("")){
            JOptionPane.showMessageDialog(null, "Tìm kiếm không được trống");
         }else{
+<<<<<<< HEAD
             clearTable();
+=======
+            ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
             Tim();
             int Count = tblCB.getRowCount();
             if(Count == 0){
                 JOptionPane.showMessageDialog(null, "Không tìm được dữ liệu này!");
+<<<<<<< HEAD
                 clearTable();
             }else{
                 clearTable();
+=======
+                ClearTable();
+            }else{
+                ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                 Tim();
                 JOptionPane.showMessageDialog(null, "Tìm kiếm dữ liệu thành công!");
            }
@@ -693,7 +725,11 @@ public class QuanLiCanBo extends javax.swing.JPanel {
 
     private void txtTimFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimFocusGained
         txtTim.setText("");
+<<<<<<< HEAD
         clearTable();
+=======
+        ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         loadTable();
     }//GEN-LAST:event_txtTimFocusGained
 
@@ -706,7 +742,11 @@ public class QuanLiCanBo extends javax.swing.JPanel {
             if(n == JOptionPane.YES_OPTION){
                 Xoa();
                 JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công!");
+<<<<<<< HEAD
                 clearTable();
+=======
+                ClearTable();
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                 loadTable();
                 textRong();
             }else 
@@ -714,6 +754,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
             } 
     }//GEN-LAST:event_btnXoaActionPerformed
 
+<<<<<<< HEAD
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int i = tblCB.getSelectedRow();
         if(i == -1){
@@ -725,6 +766,8 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
+=======
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
     
     public final class LengthRestrictedDocument extends PlainDocument {
 

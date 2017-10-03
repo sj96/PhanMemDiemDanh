@@ -242,7 +242,11 @@
               </Border>
             </Property>
             <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
+<<<<<<< HEAD
               <SpinnerEditor format="HH:mm" type="1"/>
+=======
+              <SpinnerEditor format="HH:00" type="1"/>
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
             </Property>
           </Properties>
           <AuxValues>
@@ -263,7 +267,11 @@
               </Border>
             </Property>
             <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
+<<<<<<< HEAD
               <SpinnerEditor format="HH:mm" type="1"/>
+=======
+              <SpinnerEditor format="HH:00" type="1"/>
+>>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
             </Property>
           </Properties>
           <AuxValues>

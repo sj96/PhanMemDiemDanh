@@ -13,11 +13,17 @@ public class MainForm extends javax.swing.JFrame {
     
     public MainForm() {
         initComponents();
+<<<<<<< HEAD
         DiemDanh DD = new DiemDanh();
         pnBody.removeAll();
         pnBody.add(DD);
         pnBody.validate();
         this.setResizable(false);
+=======
+        
+        //test su kien
+        quanLiSuKien1.loader();
+>>>>>>> parent of c363de5... update GUI
     }
 
     /**
@@ -34,6 +40,7 @@ public class MainForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnDangNhap = new javax.swing.JButton();
         Menu = new javax.swing.JPanel();
+<<<<<<< HEAD
         btnDiemDanh = new javax.swing.JButton();
         btnQunLiSuKien = new javax.swing.JButton();
         btnQuanLiCanBo = new javax.swing.JButton();
@@ -41,6 +48,15 @@ public class MainForm extends javax.swing.JFrame {
         btnThongKe = new javax.swing.JButton();
         Body = new javax.swing.JPanel();
         pnBody = new javax.swing.JPanel();
+=======
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        Body = new javax.swing.JPanel();
+        quanLiSuKien1 = new DiemDanh.QuanLiSuKien();
+>>>>>>> parent of c363de5... update GUI
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -86,6 +102,7 @@ public class MainForm extends javax.swing.JFrame {
         Menu.setBackground(new java.awt.Color(0, 153, 255));
         Menu.setLayout(new java.awt.GridLayout(1, 0));
 
+<<<<<<< HEAD
         btnDiemDanh.setBackground(new java.awt.Color(0, 153, 255));
         btnDiemDanh.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDiemDanh.setForeground(new java.awt.Color(255, 255, 255));
@@ -135,11 +152,43 @@ public class MainForm extends javax.swing.JFrame {
         btnThongKe.setForeground(new java.awt.Color(255, 255, 255));
         btnThongKe.setText("Thống Kê");
         Menu.add(btnThongKe);
+=======
+        jButton2.setBackground(new java.awt.Color(0, 153, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Điểm Danh");
+        Menu.add(jButton2);
+
+        jButton3.setBackground(new java.awt.Color(0, 153, 255));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Quản lí Sự Kiện");
+        Menu.add(jButton3);
+
+        jButton4.setBackground(new java.awt.Color(0, 153, 255));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Quản lí Cán Bộ");
+        Menu.add(jButton4);
+
+        jButton5.setBackground(new java.awt.Color(0, 153, 255));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Quản lí Sinh Viên");
+        Menu.add(jButton5);
+
+        jButton6.setBackground(new java.awt.Color(0, 153, 255));
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Thống Kê");
+        Menu.add(jButton6);
+>>>>>>> parent of c363de5... update GUI
 
         Body.setBackground(new java.awt.Color(255, 255, 255));
         Body.setMinimumSize(new java.awt.Dimension(996, 511));
         Body.setPreferredSize(new java.awt.Dimension(0, 425));
         Body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Body.add(quanLiSuKien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pnBody.setLayout(new java.awt.BorderLayout());
         Body.add(pnBody, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 510));
@@ -233,6 +282,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel Body;
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Menu;
+<<<<<<< HEAD
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JButton btnDiemDanh;
     private javax.swing.JButton btnQuanLiCanBo;
@@ -242,5 +292,16 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel pnBody;
+=======
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private DiemDanh.QuanLiSuKien quanLiSuKien1;
+>>>>>>> parent of c363de5... update GUI
     // End of variables declaration//GEN-END:variables
 }
