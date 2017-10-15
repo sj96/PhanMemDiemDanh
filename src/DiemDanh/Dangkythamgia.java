@@ -58,21 +58,34 @@ public class Dangkythamgia extends javax.swing.JPanel {
         TimKiemBtn5 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(996, 511));
-        setPreferredSize(new java.awt.Dimension(996, 511));
+        setMaximumSize(new java.awt.Dimension(1000, 511));
+        setMinimumSize(new java.awt.Dimension(1000, 511));
+        setPreferredSize(new java.awt.Dimension(1000, 511));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Stt", "Mã số", "Họ tên"
+                "", "Stt", "Mã số", "Họ tên"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(30);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(30);
+        }
 
         CTSuKien.setBackground(new java.awt.Color(255, 255, 255));
         CTSuKien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -165,24 +178,35 @@ public class Dangkythamgia extends javax.swing.JPanel {
 
         CBTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Mscb", "Họ tên", "Khoa/Phòng", "Bộ Môn/Tổ"
+                "", "Mscb", "Họ tên", "Khoa/Phòng", "Bộ Môn/Tổ"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(CBTable);
+        if (CBTable.getColumnModel().getColumnCount() > 0) {
+            CBTable.getColumnModel().getColumn(0).setMinWidth(30);
+            CBTable.getColumnModel().getColumn(0).setMaxWidth(30);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -312,7 +336,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                        .addComponent(jTabbedPane1)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(CTSuKien, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -10,14 +10,20 @@ package DiemDanh;
  * @author trana
  */
 public class BaoCao2 extends javax.swing.JPanel {
-
-    /**
+    
+    BaoCao1 bcpanel;
+     /**
      * Creates new form BaoCao2
      */
     public BaoCao2() {
         initComponents();
     }
-
+    
+    public void ChiTietBaoCao(String maSuKien, BaoCao1 bcPanel){
+        bcpanel = bcPanel;
+        //xử lý load thông tin
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,6 +38,8 @@ public class BaoCao2 extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -51,8 +59,9 @@ public class BaoCao2 extends javax.swing.JPanel {
         Btn1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(1000, 510));
-        setPreferredSize(new java.awt.Dimension(1000, 510));
+        setMaximumSize(new java.awt.Dimension(1000, 511));
+        setMinimumSize(new java.awt.Dimension(1000, 511));
+        setPreferredSize(new java.awt.Dimension(1000, 511));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         CTSuKien.setBackground(new java.awt.Color(255, 255, 255));
@@ -71,6 +80,14 @@ public class BaoCao2 extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Địa điểm:");
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("<Thời Gian>");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("<Địa Điểm>");
+
         javax.swing.GroupLayout CTSuKienLayout = new javax.swing.GroupLayout(CTSuKien);
         CTSuKien.setLayout(CTSuKienLayout);
         CTSuKienLayout.setHorizontalGroup(
@@ -81,9 +98,13 @@ public class BaoCao2 extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         CTSuKienLayout.setVerticalGroup(
@@ -94,11 +115,13 @@ public class BaoCao2 extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
                 .addContainerGap())
         );
 
-        add(CTSuKien, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 887, -1));
+        add(CTSuKien, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 10, 920, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -284,15 +307,27 @@ public class BaoCao2 extends javax.swing.JPanel {
         Btn1.setBackground(new java.awt.Color(51, 153, 255));
         Btn1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Btn1.setForeground(new java.awt.Color(255, 255, 255));
-        Btn1.setText("Quay lại");
-        add(Btn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, 90, 30));
+        Btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DiemDanh/back-arrow.png"))); // NOI18N
+        Btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn1ActionPerformed(evt);
+            }
+        });
+        add(Btn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1ActionPerformed
+        this.setVisible(false);
+        bcpanel.setVisible(true);
+    }//GEN-LAST:event_Btn1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn1;
     private javax.swing.JPanel CTSuKien;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
