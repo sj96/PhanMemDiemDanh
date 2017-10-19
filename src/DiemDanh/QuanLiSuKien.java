@@ -6,12 +6,10 @@
 package DiemDanh;
 
 import java.sql.Connection;
-//import java.sql.Date;
-import java.util.Date;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -28,15 +26,11 @@ public class QuanLiSuKien extends javax.swing.JPanel {
     
     public QuanLiSuKien() {
         initComponents();
-<<<<<<< HEAD
         clearTable();
-=======
-        ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         loadTable();
     }
     
-    public static DefaultTableModel tableModel = new DefaultTableModel(){
+    private static DefaultTableModel tableModel = new DefaultTableModel(){
         @Override
         public boolean isCellEditable(int row, int column)
         {
@@ -74,77 +68,9 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         }
     }
     
-    private void loadText() throws ParseException{
-        
-        int i = tblSuKien.getSelectedRow();
-        Object maSK = tableModel.getValueAt(i, 0);
-        Object tenSK = tableModel.getValueAt(i, 1);
-        Object ngayBD =  tableModel.getValueAt(i, 2);
-        Object gioBD = tableModel.getValueAt(i, 3);
-        Object ngayKT = tableModel.getValueAt(i, 5);
-        Object gioKT = tableModel.getValueAt(i, 4);
-        
-        SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
-
-        
-        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-
-        spnGioBD.setValue(outtime.parse((String) gioBD));
-        spnGioKT.setValue(outtime.parse((String) gioKT));
-        spnNgayBD.setValue(out.parse((String) ngayBD));
-        spnNgayKT.setValue(out.parse((String) ngayKT));
-        
-        txtMaSuKien.setText((String) maSK);
-        txtTenSuKien.setText((String) tenSK);
-        
-    } 
     
-    private void Tim(){
-        try {
-            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-            con = Connect.connect();
-            Statement s = con.createStatement();
-            String Search = txtTimKiem.getText();
-            String sql = "SELECT * FROM `sukien` where `MSK` Like '%"+Search+"%' or `TenSK` Like '%"+Search+"%' or `TGBatDau` Like '%"+Search+"%' or `TGKetThuc` Like '%"+Search+"%' or `NgayBD` Like '%"+Search+"%' or `NgayKT` Like '%"+Search+"%'";
-            ResultSet rs = s.executeQuery(sql);
-            while(rs.next()){ 
-                Object rows[] = new Object[6];
-                rows[0] = rs.getString(1);
-                rows[1] = rs.getString(2);  
-                rows[2] = formater.format(rs.getDate(5));
-                rows[3] = format.format(rs.getTime(3));
-                rows[4] = format.format(rs.getTime(4));
-                rows[5] =formater.format(rs.getDate(6));
-                tableModel.addRow(rows);
-            }
-            con.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
     
-    private void Them(){
-            try {
-            con = Connect.connect();
-            SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-            Statement st = con.createStatement();
-            String Ma = txtMaSuKien.getText();
-            String Ten = txtTenSuKien.getText();
-            String TGBD =  format.format(spnGioBD.getValue());
-            String TGKT =  format.format(spnGioKT.getValue());
-            String NgayBD =  formater.format(spnNgayBD.getValue());
-            String NgayKT = formater.format(spnNgayKT.getValue());
-//            System.out.println(Ma+ "  " +Ten + " " +TGBD+" "+TGKT+" "+ NgayBD+" "+NgayKT);
-            String SK = "insert into sukien  values('"+Ma+"','"+Ten+"','"+TGBD+"','"+TGKT+"','"+NgayBD+"','"+NgayKT+"')";
-            st.executeUpdate(SK);
-            con.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-     
+    
     private void Xoa(){
           try {
             con = Connect.connect();
@@ -171,6 +97,219 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         }
     }
     
+    private void loadText() throws ParseException{
+        
+        int i = tblSuKien.getSelectedRow();
+        Object maSK = tableModel.getValueAt(i, 0);
+        Object tenSK = tableModel.getValueAt(i, 1);
+        Object ngayBD =  tableModel.getValueAt(i, 2);
+        Object gioBD = tableModel.getValueAt(i, 3);
+        Object ngayKT = tableModel.getValueAt(i, 5);
+        Object gioKT = tableModel.getValueAt(i, 4);
+        
+        SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
+
+        
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+
+        spnGioBD.setValue(outtime.parse((String) gioBD));
+        spnGioKT.setValue(outtime.parse((String) gioKT));
+        spnNgayBD.setValue(out.parse((String) ngayBD));
+        spnNgayKT.setValue(out.parse((String) ngayKT));
+        
+        txtMaSuKien.setText((String) maSK);
+        txtTenSuKien.setText((String) tenSK);
+        
+    } 
+    
+    private boolean kTraNgayHT(){
+        boolean ktra = false;
+         java.util.Date date = new java.util.Date();
+        SimpleDateFormat ngay = new SimpleDateFormat("dd");
+        SimpleDateFormat thang = new SimpleDateFormat("MM");
+        SimpleDateFormat nam = new SimpleDateFormat("yyyy");
+        SimpleDateFormat gio = new SimpleDateFormat("HH");
+        SimpleDateFormat phut = new SimpleDateFormat("mm");
+        
+        int ngayBD = Integer.parseInt(ngay.format(spnNgayBD.getValue()));
+        int ngayHT = Integer.parseInt(ngay.format(date));
+        int thangBD = Integer.parseInt(thang.format(spnNgayBD.getValue()));
+        int thangHT = Integer.parseInt(thang.format(date));
+        int namBD = Integer.parseInt(nam.format(spnNgayBD.getValue()));
+        int namHT = Integer.parseInt(nam.format(date));
+        int gioBD = Integer.parseInt(gio.format(spnGioBD.getValue()));
+        int gioHT = Integer.parseInt(gio.format(date));
+
+        
+        if(namHT == namBD){
+            if(thangHT == thangBD){
+                if(ngayHT == ngayBD){
+                    if(gioBD > gioHT){
+                        ktra = true;
+                    }else if(gioBD <= gioHT){
+                        ktra = false;
+                    }
+                }else if(ngayBD > ngayHT){
+                    ktra = true;
+                }else{
+                    ktra = false;
+                }
+            }else if(thangBD > thangHT){
+                ktra = true;
+            }else{
+                ktra = false;
+            }
+        }else if(namBD > namHT){
+            ktra = true;
+        }else{
+            ktra = false;
+        }
+            
+        return ktra;
+    }
+    
+
+    private boolean kTraNgay(){
+        boolean ktra = false;
+        SimpleDateFormat ngay = new SimpleDateFormat("dd");
+        SimpleDateFormat thang = new SimpleDateFormat("MM");
+        SimpleDateFormat nam = new SimpleDateFormat("yyyy");
+        SimpleDateFormat gio = new SimpleDateFormat("HH");
+        SimpleDateFormat phut = new SimpleDateFormat("mm");
+        
+        int ngayBD = Integer.parseInt(ngay.format(spnNgayBD.getValue()));
+        int ngayKT = Integer.parseInt(ngay.format(spnNgayKT.getValue()));
+        int thangBD = Integer.parseInt(thang.format(spnNgayBD.getValue()));
+        int thangKT = Integer.parseInt(thang.format(spnNgayKT.getValue()));
+        int namBD = Integer.parseInt(nam.format(spnNgayBD.getValue()));
+        int namKT = Integer.parseInt(nam.format(spnNgayKT.getValue()));
+        int gioBD = Integer.parseInt(gio.format(spnGioBD.getValue()));
+        int gioKT = Integer.parseInt(gio.format(spnGioKT.getValue()));
+        int phutBD = Integer.parseInt(phut.format(spnGioBD.getValue()));
+        int phutKT = Integer.parseInt(phut.format(spnGioKT.getValue()));
+        
+        if(namKT == namBD){
+            if(thangKT == thangBD){
+                if(ngayKT == ngayBD){
+                    if(gioKT == gioBD){
+                        if(phutKT - phutBD > 30){
+                            ktra = true;
+                        }else if (phutKT <= phutBD){
+                            ktra = false;
+                        }
+                    }else if(gioKT > gioBD){
+                        ktra = true;
+                    }else{
+                        ktra = false;
+                    }
+                }else if(ngayKT > ngayBD){
+                    ktra = true;
+                }else{
+                    ktra = false;
+                }
+            }else if(thangKT > thangBD){
+                ktra = true;
+            }else{
+                ktra = false;
+            }
+        }else if(namKT > namBD){
+            ktra = true;
+        }else{
+            ktra = false;
+        }
+            
+        return ktra;
+    }
+    
+    private void Them(){
+            try {
+            con = Connect.connect();
+            SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            Statement st = con.createStatement();
+            String Ma = txtMaSuKien.getText();
+            String Ten = txtTenSuKien.getText();
+            String TGBD =  format.format(spnGioBD.getValue());
+            String TGKT =  format.format(spnGioKT.getValue());
+            String NgayBD =  formater.format(spnNgayBD.getValue());
+            String NgayKT = formater.format(spnNgayKT.getValue());
+//            System.out.println(Ma+ "  " +Ten + " " +TGBD+" "+TGKT+" "+ NgayBD+" "+NgayKT);
+            String SK = "insert into sukien  values('"+Ma+"','"+Ten+"','"+TGBD+"','"+TGKT+"','"+NgayBD+"','"+NgayKT+"')";
+            st.executeUpdate(SK);
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void Tim(){
+        try {
+            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            con = Connect.connect();
+            Statement s = con.createStatement();
+            String Search = txtTimKiem.getText();
+            String sql = "SELECT * FROM `sukien` where `MSK` Like '%"+Search+"%' or `TenSK` Like '%"+Search+"%' or `TGBatDau` Like '%"+Search+"%' or `TGKetThuc` Like '%"+Search+"%' or `NgayBD` Like '%"+Search+"%' or `NgayKT` Like '%"+Search+"%'";
+            ResultSet rs = s.executeQuery(sql);
+            while(rs.next()){ 
+                Object rows[] = new Object[6];
+                rows[0] = rs.getString(1);
+                rows[1] = rs.getString(2);  
+                rows[2] = formater.format(rs.getDate(5));
+                rows[3] = format.format(rs.getTime(3));
+                rows[4] = format.format(rs.getTime(4));
+                rows[5] =formater.format(rs.getDate(6));
+                tableModel.addRow(rows);
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void Sua() throws ParseException{
+        int i = tblSuKien.getSelectedRow();
+        Object maSK = tableModel.getValueAt(i, 0);
+        Object tenSK = tableModel.getValueAt(i, 1);
+        Object ngayBD =  tableModel.getValueAt(i, 2);
+        Object gioBD = tableModel.getValueAt(i, 3);
+        Object ngayKT = tableModel.getValueAt(i, 5);
+        Object gioKT = tableModel.getValueAt(i, 4);
+        SuaSK s = new SuaSK();
+        SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+
+        s.spnGioBD.setValue(outtime.parse((String) gioBD));
+        s.spnGioKT.setValue(outtime.parse((String) gioKT));
+        s.spnNgayBD.setValue(out.parse((String) ngayBD));
+        s.spnNgayKT.setValue(out.parse((String) ngayKT));
+        
+        s.txtMa.setText((String) maSK);
+        s.txtHoTen.setText((String) tenSK);
+        s.setVisible(true);
+    }
+    
+    private void textRong() throws ParseException{
+        txtMaSuKien.setText("");
+        txtTenSuKien.setText("");
+//        Date today=new Date();
+//         SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
+//
+//        
+//        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+//        Object gbd = today;
+//        Object gkt = today;
+//        Object nbd = today;
+//        Object nkt = today;
+//        String gioBD = String.valueOf(gbd);
+//        String gioKT = String.valueOf(gkt);
+//        String ngayBD = String.valueOf(nbd);
+//        String ngayKT = String.valueOf(nkt);
+//        spnGioBD.setValue(outtime.parse((String) gioBD));
+//        spnGioKT.setValue(outtime.parse((String) gioKT));
+//        spnNgayBD.setValue(out.parse((String) ngayBD));
+//        spnNgayKT.setValue(out.parse((String) ngayKT));
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -362,7 +501,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         btnSua.setBackground(new java.awt.Color(51, 153, 255));
         btnSua.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSua.setForeground(new java.awt.Color(255, 255, 255));
-        btnSua.setText("Sửa");
+        btnSua.setText("Sua");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -390,11 +529,6 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         btnImport.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnImport.setForeground(new java.awt.Color(255, 255, 255));
         btnImport.setText("Import");
-        btnImport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImportActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -436,11 +570,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-<<<<<<< HEAD
                         .addComponent(btnDSThamGia)
-=======
-                        .addComponent(SuaBtn1)
->>>>>>> parent of c363de5... update GUI
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSua)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -448,11 +578,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                         .addGap(103, 103, 103)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
-<<<<<<< HEAD
                         .addComponent(btnTimKiem)
-=======
-                        .addComponent(TimKiemBtn)
->>>>>>> parent of c363de5... update GUI
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
@@ -498,7 +624,6 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                    if(rs.next()){
                        JOptionPane.showMessageDialog(null, "Mã sự kiện đã tồn tại!!");
                    }else{
-<<<<<<< HEAD
                        if(kTraNgayHT() == true){
                             if(kTraNgay() == true){
                                 Them();
@@ -513,19 +638,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                         
                        }else{
                            JOptionPane.showMessageDialog(null, "Ngày không hợp lý vui lòng chọn lại!");
-=======
-                       if(kTraNgay() == true){
-                           Them();
-                           ClearTable();
-                           loadTable();
-                           txtMaSuKien.setText("");
-                           txtTenSuKien.setText("");
-                           JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
-                       }else{
-                           JOptionPane.showMessageDialog(null, "Ngày không hợp lý vui lòng chọn lại!");
-                       }
-                        
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
+
                        }
                    }
                        
@@ -535,177 +648,20 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnTaoSKBtnActionPerformed
 
-<<<<<<< HEAD
-    private boolean kTraNgayHT(){
-        boolean ktra = false;
-         Date date = new Date();
-        SimpleDateFormat ngay = new SimpleDateFormat("dd");
-        SimpleDateFormat thang = new SimpleDateFormat("MM");
-        SimpleDateFormat nam = new SimpleDateFormat("yyyy");
-        SimpleDateFormat gio = new SimpleDateFormat("HH");
-        SimpleDateFormat phut = new SimpleDateFormat("mm");
-        
-        int ngayBD = Integer.parseInt(ngay.format(spnNgayBD.getValue()));
-        int ngayHT = Integer.parseInt(ngay.format(date));
-        int thangBD = Integer.parseInt(thang.format(spnNgayBD.getValue()));
-        int thangHT = Integer.parseInt(thang.format(date));
-        int namBD = Integer.parseInt(nam.format(spnNgayBD.getValue()));
-        int namHT = Integer.parseInt(nam.format(date));
-        int gioBD = Integer.parseInt(gio.format(spnGioBD.getValue()));
-        int gioHT = Integer.parseInt(gio.format(date));
-
-        
-        if(namHT == namBD){
-            if(thangHT == thangBD){
-                if(ngayHT == ngayBD){
-                    if(gioBD > gioHT){
-                        ktra = true;
-                    }else if(gioBD <= gioHT){
-                        ktra = false;
-                    }
-                }else if(ngayBD > ngayHT){
-                    ktra = true;
-                }else{
-                    ktra = false;
-                }
-            }else if(thangBD > thangHT){
-                ktra = true;
-            }else{
-                ktra = false;
-            }
-        }else if(namBD > namHT){
-            ktra = true;
-        }else{
-            ktra = false;
-        }
-            
-        return ktra;
-    }
-    
-=======
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
-    private boolean kTraNgay(){
-        boolean ktra = false;
-        SimpleDateFormat ngay = new SimpleDateFormat("dd");
-        SimpleDateFormat thang = new SimpleDateFormat("MM");
-        SimpleDateFormat nam = new SimpleDateFormat("yyyy");
-        SimpleDateFormat gio = new SimpleDateFormat("HH");
-        SimpleDateFormat phut = new SimpleDateFormat("mm");
-        
-        int ngayBD = Integer.parseInt(ngay.format(spnNgayBD.getValue()));
-        int ngayKT = Integer.parseInt(ngay.format(spnNgayKT.getValue()));
-        int thangBD = Integer.parseInt(thang.format(spnNgayBD.getValue()));
-        int thangKT = Integer.parseInt(thang.format(spnNgayKT.getValue()));
-        int namBD = Integer.parseInt(nam.format(spnNgayBD.getValue()));
-        int namKT = Integer.parseInt(nam.format(spnNgayKT.getValue()));
-        int gioBD = Integer.parseInt(gio.format(spnGioBD.getValue()));
-        int gioKT = Integer.parseInt(gio.format(spnGioKT.getValue()));
-
-        
-        if(namKT == namBD){
-            if(thangKT == thangBD){
-                if(ngayKT == ngayBD){
-                    if(gioKT > gioBD){
-                        ktra = true;
-                    }else if(gioKT <= gioBD){
-                        ktra = false;
-                    }
-                }else if(ngayKT > ngayBD){
-                    ktra = true;
-                }else{
-                    ktra = false;
-                }
-            }else if(thangKT > thangBD){
-                ktra = true;
-            }else{
-                ktra = false;
-            }
-        }else if(namKT > namBD){
-            ktra = true;
-        }else{
-            ktra = false;
-        }
-            
-        return ktra;
-    }
-    
-    private void Sua() throws ParseException{
-        int i = tblSuKien.getSelectedRow();
-        Object maSK = tableModel.getValueAt(i, 0);
-        Object tenSK = tableModel.getValueAt(i, 1);
-        Object ngayBD =  tableModel.getValueAt(i, 2);
-        Object gioBD = tableModel.getValueAt(i, 3);
-        Object ngayKT = tableModel.getValueAt(i, 5);
-        Object gioKT = tableModel.getValueAt(i, 4);
-        SuaSK s = new SuaSK();
-        SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-
-        s.spnGioBD.setValue(outtime.parse((String) gioBD));
-        s.spnGioKT.setValue(outtime.parse((String) gioKT));
-        s.spnNgayBD.setValue(out.parse((String) ngayBD));
-        s.spnNgayKT.setValue(out.parse((String) ngayKT));
-        
-        s.txtMaSK.setText((String) maSK);
-        s.txtTenSK.setText((String) tenSK);
-        s.setVisible(true);
-    }
-    
-    private void textRong() throws ParseException{
-        txtMaSuKien.setText("");
-        txtTenSuKien.setText("");
-//        Date today=new Date();
-//         SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
-//
-//        
-//        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-//        Object gbd = today;
-//        Object gkt = today;
-//        Object nbd = today;
-//        Object nkt = today;
-//        String gioBD = String.valueOf(gbd);
-//        String gioKT = String.valueOf(gkt);
-//        String ngayBD = String.valueOf(nbd);
-//        String ngayKT = String.valueOf(nkt);
-//        spnGioBD.setValue(outtime.parse((String) gioBD));
-//        spnGioKT.setValue(outtime.parse((String) gioKT));
-//        spnNgayBD.setValue(out.parse((String) ngayBD));
-//        spnNgayKT.setValue(out.parse((String) ngayKT));
-    }
-    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-        
-    }//GEN-LAST:event_btnImportActionPerformed
-
-    private void tblSuKienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSuKienMouseClicked
-        try {
-            loadText();
-        } catch (ParseException ex) {
-            Logger.getLogger(QuanLiSuKien.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_tblSuKienMouseClicked
-
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         if(txtTimKiem.getText().equals("")){
            JOptionPane.showMessageDialog(null, "Tìm kiếm không được trống");
         }else{
-<<<<<<< HEAD
+
             clearTable();
-=======
-            ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
+
             Tim();
             int Count = tblSuKien.getRowCount();
             if(Count == 0){
                 JOptionPane.showMessageDialog(null, "Không tìm được dữ liệu này!");
-<<<<<<< HEAD
                 clearTable();
             }else{
                 clearTable();
-=======
-                ClearTable();
-            }else{
-                ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                 Tim();
                 JOptionPane.showMessageDialog(null, "Tìm kiếm dữ liệu thành công!");
            }
@@ -713,34 +669,26 @@ public class QuanLiSuKien extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
-<<<<<<< HEAD
         clearTable();
-=======
-        ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         loadTable();
         txtTimKiem.setText("");
     }//GEN-LAST:event_txtTimKiemFocusGained
-    
+
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        int i = tblSuKien.getSelectedRow();
+         int i = tblSuKien.getSelectedRow();
         if(i == -1){
             JOptionPane.showMessageDialog(null, "Chọn dữ liệu trước khi sửa!");
         }else{
             try {
                 Sua();
-<<<<<<< HEAD
                 clearTable();
-=======
-                ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                 loadTable();
             } catch (ParseException ex) {
                 Logger.getLogger(QuanLiSuKien.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnSuaActionPerformed
-    
+
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int i = tblSuKien.getSelectedRow();
         if(i == -1){
@@ -751,11 +699,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                 try {
                    Xoa();
                    JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công!");
-<<<<<<< HEAD
                    clearTable();
-=======
-                   ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                    loadTable();
                    textRong();
                } catch (ParseException ex) {
@@ -765,6 +709,14 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                 return;
         } 
     }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void tblSuKienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSuKienMouseClicked
+       try {
+            loadText();
+        } catch (ParseException ex) {
+            Logger.getLogger(QuanLiSuKien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tblSuKienMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -787,7 +739,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
     private javax.swing.JSpinner spnGioKT;
     private javax.swing.JSpinner spnNgayBD;
     private javax.swing.JSpinner spnNgayKT;
-    public javax.swing.JTable tblSuKien;
+    private javax.swing.JTable tblSuKien;
     private javax.swing.JTextField txtMaSuKien;
     private javax.swing.JTextField txtTenSuKien;
     private javax.swing.JTextField txtTimKiem;

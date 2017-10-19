@@ -52,8 +52,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtMaSK" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtTenSK" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtMa" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtHoTen" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -97,11 +97,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtMaSK" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtMa" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtTenSK" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtHoTen" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -141,7 +141,7 @@
             <Property name="text" type="java.lang.String" value="M&#xe3; s&#x1ef1; ki&#x1ec7;n:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtMaSK">
+        <Component class="javax.swing.JTextField" name="txtMa">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -160,7 +160,7 @@
             <Property name="text" type="java.lang.String" value="T&#xea;n s&#x1ef1; ki&#x1ec7;n:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtTenSK">
+        <Component class="javax.swing.JTextField" name="txtHoTen">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -242,11 +242,7 @@
               </Border>
             </Property>
             <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
-<<<<<<< HEAD
               <SpinnerEditor format="HH:mm" type="1"/>
-=======
-              <SpinnerEditor format="HH:00" type="1"/>
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
             </Property>
           </Properties>
           <AuxValues>
@@ -267,11 +263,7 @@
               </Border>
             </Property>
             <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
-<<<<<<< HEAD
               <SpinnerEditor format="HH:mm" type="1"/>
-=======
-              <SpinnerEditor format="HH:00" type="1"/>
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
             </Property>
           </Properties>
           <AuxValues>

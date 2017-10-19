@@ -8,6 +8,9 @@ package DiemDanh;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -21,6 +24,7 @@ public class SuaTTCb extends javax.swing.JFrame {
     public SuaTTCb() {
         initComponents();
         txtMa.setEditable(false);
+        txtMaT.setDocument(new LengthRestrictedDocument(10));
     }
 
     /**
@@ -73,7 +77,7 @@ public class SuaTTCb extends javax.swing.JFrame {
         jLabel6.setText("Khoa:");
 
         cbbKhoa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbbKhoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khoa Công nghệ", "Khoa Công nghệ TT-TT", "Khoa Khoa học Chính trị", "Khoa Khoa học Tự nhiên", "Khoa Khoa học Xã hội & Nhân văn", "Khoa Kinh tế", "Khoa Luật", "Khoa Môi trường & TNTN", "Khoa Nông nghiệp & SNƯD", "Khoa Ngoại ngữ", "Khoa Phát triển Nông thôn", "Khoa Sư phạm", "Khoa Thủy sản", "Viện NC&PTCNSH", "Viện NCPT ĐBSCL", "Bộ môn Giáo dục Thể chất" }));
+        cbbKhoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khoa Công nghệ", "Khoa Công nghệ TT-TT", "Khoa Khoa học Chính trị", "Khoa Khoa học Tự nhiên", "Khoa Khoa học Xã hội & Nhân văn", "Khoa Kinh tế", "Khoa Luật", "Khoa Môi trường & TNTN", "Khoa Nông nghiệp & SHƯD", "Khoa Ngoại ngữ", "Khoa Phát triển Nông thôn", "Khoa Sư phạm", "Khoa Thủy sản", "Viện NC&PTCNSH", "Viện NCPT ĐBSCL", "Bộ môn Giáo dục Thể chất" }));
         cbbKhoa.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbKhoaItemStateChanged(evt);
@@ -208,6 +212,40 @@ public class SuaTTCb extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        QuanLiCanBo ql = new QuanLiCanBo();
+        if(txtHoTen.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Họ và tên cán bộ không được trống!");
+        }else{
+            if(txtEM.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Email không được trống!");
+            }else if(!txtEM.getText().matches(EMAIL_REGEX)){
+                    JOptionPane.showMessageDialog(null, "Email không hợp lệ!");
+                }else{
+                    ql.clearTable();
+                    Sua();
+                    ql.loadTable();
+                    JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
+                    this.dispose(); 
+                    }
+                
+            
+            }
+    }//GEN-LAST:event_btnLuuActionPerformed
+
+    private void cbbKhoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbKhoaItemStateChanged
+        nganhKhoa();
+    }//GEN-LAST:event_cbbKhoaItemStateChanged
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        int n = JOptionPane.showConfirmDialog(null,"Bạn chắc chắn muốn hủy?","THÔNG BÁO",JOptionPane.YES_NO_OPTION);
+        if(n == JOptionPane.YES_OPTION){
+            this.dispose();
+        }else 
+            return;
+    }//GEN-LAST:event_btnHuyActionPerformed
+
     
     private void nganhKhoa(){
         if(cbbKhoa.getSelectedItem().equals("Khoa Công nghệ")){
@@ -298,14 +336,14 @@ public class SuaTTCb extends javax.swing.JFrame {
             cbbNganh.addItem("Sinh học ứng dụng");
             cbbNganh.addItem("Thú y");
             cbbNganh.addItem("Thú y (Dược Thú y)");
-        }else if(cbbKhoa.getSelectedItem().equals("Khoa Ngoại Ngữ")){
+        }else if(cbbKhoa.getSelectedItem().equals("Khoa Ngoại ngữ")){
             cbbNganh.removeAllItems();
             cbbNganh.addItem("Ngôn ngữ Anh");
             cbbNganh.addItem("Ngôn ngữ Anh (Phiên dịch - Biên dịch tiếng Anh)");
             cbbNganh.addItem("Ngôn ngữ Pháp");
             cbbNganh.addItem("Sư Phạm Tiếng Anh");
             cbbNganh.addItem("Sư phạm Tiếng Pháp");
-        }else if(cbbKhoa.getSelectedItem().equals("Khoa Phát triển nông thôn")){
+        }else if(cbbKhoa.getSelectedItem().equals("Khoa Phát triển Nông thôn")){
             cbbNganh.removeAllItems();
             cbbNganh.addItem("Khuyến nông");
             cbbNganh.addItem("Kinh doanh nông nghiệp");
@@ -362,44 +400,12 @@ public class SuaTTCb extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-    private void cbbKhoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbKhoaItemStateChanged
-        nganhKhoa();
-    }//GEN-LAST:event_cbbKhoaItemStateChanged
+                                          
 
-    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-       int n = JOptionPane.showConfirmDialog(null,"Bạn chắc chắn muốn hủy?","THÔNG BÁO",JOptionPane.YES_NO_OPTION);
-        if(n == JOptionPane.YES_OPTION){
-            this.dispose();
-        }else 
-            return;
-    }//GEN-LAST:event_btnHuyActionPerformed
+                                  
 
     String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        QuanLiCanBo ql = new QuanLiCanBo();
-        if(txtHoTen.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Họ và tên cán bộ không được trống!");
-        }else{
-            if(txtEM.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Email không được trống!");
-            }else if(!txtEM.getText().matches(EMAIL_REGEX)){
-                    JOptionPane.showMessageDialog(null, "Email không hợp lệ!");
-                }else{
-                    if(txtMaT.getText().equals("")){
-                        JOptionPane.showMessageDialog(null, "Mã số thẻ không được trống!");
-                    }else{
-                        ql.clearTable();
-                        Sua();
-                        ql.loadTable();
-                        JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
-                        this.dispose(); 
-                    }}
-                
-            
-            }
-    }//GEN-LAST:event_btnLuuActionPerformed
-
-      
+                          
     /**
      * @param args the command line arguments
      */
@@ -429,6 +435,10 @@ public class SuaTTCb extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -438,6 +448,8 @@ public class SuaTTCb extends javax.swing.JFrame {
         });
     }
 
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;

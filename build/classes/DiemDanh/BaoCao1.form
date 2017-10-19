@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
+    </Property>
+    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1000, 511]"/>
+    </Property>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1000, 511]"/>
+    </Property>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1000, 511]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -32,7 +41,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnTimKiem" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="334" max="-2" attributes="0"/>
-                      <Component id="Btn1" min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnXemChitiet" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Btn2" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -49,7 +58,7 @@
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Btn1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnXemChitiet" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Btn2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="14" max="32767" attributes="0"/>
@@ -115,7 +124,7 @@
         <Property name="text" type="java.lang.String" value="B&#xe1;o c&#xe1;o"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="Btn1">
+    <Component class="javax.swing.JButton" name="BtnXemChitiet">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="99" red="33" type="rgb"/>
@@ -128,6 +137,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Xem chi ti&#x1ebf;t"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnXemChitietActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Btn2">
       <Properties>

@@ -6,13 +6,9 @@
 package DiemDanh;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-<<<<<<< HEAD
 import java.util.Date;
-=======
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
 import javax.swing.JOptionPane;
 
 /**
@@ -39,9 +35,9 @@ public class SuaSK extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtMaSK = new javax.swing.JTextField();
+        txtMa = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtTenSK = new javax.swing.JTextField();
+        txtHoTen = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         spnNgayBD = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
@@ -59,13 +55,13 @@ public class SuaSK extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Mã sự kiện:");
 
-        txtMaSK.setEditable(false);
-        txtMaSK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtMa.setEditable(false);
+        txtMa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Tên sự kiện:");
 
-        txtTenSK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtHoTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Thời gian bắt đầu:");
@@ -86,20 +82,12 @@ public class SuaSK extends javax.swing.JFrame {
         spnGioBD.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         spnGioBD.setModel(new javax.swing.SpinnerDateModel());
         spnGioBD.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-<<<<<<< HEAD
         spnGioBD.setEditor(new javax.swing.JSpinner.DateEditor(spnGioBD, "HH:mm"));
-=======
-        spnGioBD.setEditor(new javax.swing.JSpinner.DateEditor(spnGioBD, "HH:00"));
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
 
         spnGioKT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         spnGioKT.setModel(new javax.swing.SpinnerDateModel());
         spnGioKT.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-<<<<<<< HEAD
         spnGioKT.setEditor(new javax.swing.JSpinner.DateEditor(spnGioKT, "HH:mm"));
-=======
-        spnGioKT.setEditor(new javax.swing.JSpinner.DateEditor(spnGioKT, "HH:00"));
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
 
         btnLuu.setBackground(new java.awt.Color(51, 153, 255));
         btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -130,8 +118,8 @@ public class SuaSK extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMaSK)
-                            .addComponent(txtTenSK, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtMa)
+                            .addComponent(txtHoTen, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -163,11 +151,11 @@ public class SuaSK extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMaSK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTenSK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,51 +193,10 @@ public class SuaSK extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private QuanLiSuKien sk = new QuanLiSuKien();
-    private Connection con = null;
-<<<<<<< HEAD
 
-    
-=======
-    private void loadTable(){
-         try {
-            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-            con = Connect.connect();
-            
-            Statement s = con.createStatement();
-            
-            ResultSet rs = s.executeQuery("SELECT * FROM sukien");
-            String []colsName = {"Mã sự kiện", "Tên sự kiện","Ngày BĐ","Thời gian BĐ","Thời gian KT","Ngày KT"};
-            sk.tableModel.setColumnIdentifiers(colsName); 
-            sk.tblSuKien.setModel(sk.tableModel);
-            while(rs.next()){ 
-                Object rows[] = new Object[6];
-                rows[0] = rs.getString(1);
-                rows[1] = rs.getString(2);  
-                rows[2] = formater.format(rs.getDate(5));
-                rows[3] = format.format(rs.getTime(3));
-                rows[4] = format.format(rs.getTime(4));
-                rows[5] =formater.format(rs.getDate(6));
-                sk.tableModel.addRow(rows);
-            }
-            con.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    private void clearTable(){
-        int dem = sk.tblSuKien.getRowCount();
-        try{
-        while (dem > 0 ){
-            sk.tableModel.removeRow(0);
-        }
-        }catch(java.lang.ArrayIndexOutOfBoundsException e){
-            e.getMessage();
-        }
-    }
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
+     private QuanLiSuKien sk = new QuanLiSuKien();
+    private Connection con = null;
+
     
     private void Sua(){
         try {
@@ -257,8 +204,8 @@ public class SuaSK extends javax.swing.JFrame {
             SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");
             Statement st = con.createStatement();
-            String Ma = txtMaSK.getText();
-            String Ten = txtTenSK.getText();
+            String Ma = txtMa.getText();
+            String Ten = txtHoTen.getText();
             String TGBD =  format.format(spnGioBD.getValue());
             String TGKT =  format.format(spnGioKT.getValue());
             String NgayBD =  formater.format(spnNgayBD.getValue());
@@ -287,14 +234,21 @@ public class SuaSK extends javax.swing.JFrame {
         int namKT = Integer.parseInt(nam.format(spnNgayKT.getValue()));
         int gioBD = Integer.parseInt(gio.format(spnGioBD.getValue()));
         int gioKT = Integer.parseInt(gio.format(spnGioKT.getValue()));
-
+        int phutBD = Integer.parseInt(phut.format(spnGioBD.getValue()));
+        int phutKT = Integer.parseInt(phut.format(spnGioKT.getValue()));
         
         if(namKT == namBD){
             if(thangKT == thangBD){
                 if(ngayKT == ngayBD){
-                    if(gioKT > gioBD){
+                    if(gioKT == gioBD){
+                        if(phutKT - phutBD > 30){
+                            ktra = true;
+                        }else if (phutKT <= phutBD){
+                            ktra = false;
+                        }
+                    }else if(gioKT > gioBD){
                         ktra = true;
-                    }else if(gioKT <= gioBD){
+                    }else{
                         ktra = false;
                     }
                 }else if(ngayKT > ngayBD){
@@ -316,7 +270,7 @@ public class SuaSK extends javax.swing.JFrame {
         return ktra;
     }
     
-<<<<<<< HEAD
+
     private boolean kTraNgayHT(){
         boolean ktra = false;
          Date date = new Date();
@@ -363,8 +317,6 @@ public class SuaSK extends javax.swing.JFrame {
         return ktra;
     }
     
-=======
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         int n = JOptionPane.showConfirmDialog(null,"Bạn chắc chắn muốn hủy?","THÔNG BÁO",JOptionPane.YES_NO_OPTION);
         if(n == JOptionPane.YES_OPTION){
@@ -374,9 +326,8 @@ public class SuaSK extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-<<<<<<< HEAD
         QuanLiSuKien ql = new QuanLiSuKien();
-        if(txtTenSK.getText().equals("")){
+        if(txtHoTen.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Tên sự kiện không được trống!");
         }else{
             if(kTraNgayHT() == true){
@@ -389,17 +340,6 @@ public class SuaSK extends javax.swing.JFrame {
                 }else{
                     JOptionPane.showMessageDialog(null, "Ngày tháng hoặc giờ không hợp lý!");
                 }
-=======
-        if(txtTenSK.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Tên sự kiện không được trống!");
-        }else{
-            if(kTraNgay() == true){
-                clearTable();
-                Sua();
-                loadTable();
-                JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
-                this.dispose();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
             }else{
                 JOptionPane.showMessageDialog(null, "Ngày tháng hoặc giờ không hợp lý!");
             }
@@ -432,6 +372,7 @@ public class SuaSK extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(SuaSK.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -453,7 +394,7 @@ public class SuaSK extends javax.swing.JFrame {
     public javax.swing.JSpinner spnGioKT;
     public javax.swing.JSpinner spnNgayBD;
     public javax.swing.JSpinner spnNgayKT;
-    public javax.swing.JTextField txtMaSK;
-    public javax.swing.JTextField txtTenSK;
+    public javax.swing.JTextField txtHoTen;
+    public javax.swing.JTextField txtMa;
     // End of variables declaration//GEN-END:variables
 }

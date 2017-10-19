@@ -10,14 +10,18 @@ package DiemDanh;
  * @author trana
  */
 public class BaoCao1 extends javax.swing.JPanel {
-
+    BaoCao2 chitietPanel;
     /**
      * Creates new form BaoCao1
      */
     public BaoCao1() {
         initComponents();
     }
-
+    
+    //set main form
+    public void setPanel(BaoCao2 chitietPanel){
+        this.chitietPanel = chitietPanel;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,10 +36,13 @@ public class BaoCao1 extends javax.swing.JPanel {
         txtTimKiem = new javax.swing.JTextField();
         btnTimKiem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        Btn1 = new javax.swing.JButton();
+        BtnXemChitiet = new javax.swing.JButton();
         Btn2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(1000, 511));
+        setMinimumSize(new java.awt.Dimension(1000, 511));
+        setPreferredSize(new java.awt.Dimension(1000, 511));
 
         tblSuKien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -60,10 +67,15 @@ public class BaoCao1 extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Báo cáo");
 
-        Btn1.setBackground(new java.awt.Color(51, 153, 255));
-        Btn1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Btn1.setForeground(new java.awt.Color(255, 255, 255));
-        Btn1.setText("Xem chi tiết");
+        BtnXemChitiet.setBackground(new java.awt.Color(51, 153, 255));
+        BtnXemChitiet.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        BtnXemChitiet.setForeground(new java.awt.Color(255, 255, 255));
+        BtnXemChitiet.setText("Xem chi tiết");
+        BtnXemChitiet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnXemChitietActionPerformed(evt);
+            }
+        });
 
         Btn2.setBackground(new java.awt.Color(51, 153, 255));
         Btn2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -85,7 +97,7 @@ public class BaoCao1 extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnTimKiem)
                         .addGap(334, 334, 334)
-                        .addComponent(Btn1)
+                        .addComponent(BtnXemChitiet)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Btn2)))
                 .addContainerGap())
@@ -98,7 +110,7 @@ public class BaoCao1 extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem)
-                    .addComponent(Btn1)
+                    .addComponent(BtnXemChitiet)
                     .addComponent(Btn2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -106,10 +118,19 @@ public class BaoCao1 extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnXemChitietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnXemChitietActionPerformed
+        //xu li bien truyen vao ma su kien
+        String maSuKien;
+        maSuKien = "" ;
+        chitietPanel.ChiTietBaoCao(maSuKien, this);
+        this.setVisible(false);
+        chitietPanel.setVisible(true);
+    }//GEN-LAST:event_BtnXemChitietActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Btn1;
     private javax.swing.JButton Btn2;
+    private javax.swing.JButton BtnXemChitiet;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

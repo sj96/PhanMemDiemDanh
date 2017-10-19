@@ -27,11 +27,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
      */
     public QuanLiCanBo() {
         initComponents();
-<<<<<<< HEAD
         clearTable();
-=======
-        ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         loadTable();
         txtMaT.setDocument(new LengthRestrictedDocument(10));
 //        cbbNganh.setEnabled(false);
@@ -53,7 +49,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         txtMa = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
-        TaoSVBtn = new javax.swing.JButton();
+        btnTao = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         cbbKhoa = new javax.swing.JComboBox<>();
@@ -93,6 +89,8 @@ public class QuanLiCanBo extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblCB.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblCB.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblCB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCBMouseClicked(evt);
@@ -114,13 +112,13 @@ public class QuanLiCanBo extends javax.swing.JPanel {
 
         txtHoTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        TaoSVBtn.setBackground(new java.awt.Color(51, 153, 255));
-        TaoSVBtn.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        TaoSVBtn.setForeground(new java.awt.Color(255, 255, 255));
-        TaoSVBtn.setText("Tạo Cán Bộ");
-        TaoSVBtn.addActionListener(new java.awt.event.ActionListener() {
+        btnTao.setBackground(new java.awt.Color(51, 153, 255));
+        btnTao.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnTao.setForeground(new java.awt.Color(255, 255, 255));
+        btnTao.setText("Tạo Cán Bộ");
+        btnTao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TaoSVBtnActionPerformed(evt);
+                btnTaoActionPerformed(evt);
             }
         });
 
@@ -131,7 +129,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         jLabel5.setText("Khoa:");
 
         cbbKhoa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbbKhoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khoa Công nghệ", "Khoa Công nghệ TT-TT", "Khoa Khoa học Chính trị", "Khoa Khoa học Tự nhiên", "Khoa Khoa học Xã hội & Nhân văn", "Khoa Kinh tế", "Khoa Luật", "Khoa Môi trường & TNTN", "Khoa Nông nghiệp & SNƯD", "Khoa Ngoại ngữ", "Khoa Phát triển Nông thôn", "Khoa Sư phạm", "Khoa Thủy sản", "Viện NC&PTCNSH", "Viện NCPT ĐBSCL", "Bộ môn Giáo dục Thể chất" }));
+        cbbKhoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khoa Công nghệ", "Khoa Công nghệ TT-TT", "Khoa Khoa học Chính trị", "Khoa Khoa học Tự nhiên", "Khoa Khoa học Xã hội & Nhân văn", "Khoa Kinh tế", "Khoa Luật", "Khoa Môi trường & TNTN", "Khoa Nông nghiệp & SHƯD", "Khoa Ngoại ngữ", "Khoa Phát triển Nông thôn", "Khoa Sư phạm", "Khoa Thủy sản", "Viện NC&PTCNSH", "Viện NCPT ĐBSCL", "Bộ môn Giáo dục Thể chất" }));
         cbbKhoa.setToolTipText("");
         cbbKhoa.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -185,7 +183,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TaoSVBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTao, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -221,7 +219,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(TaoSVBtn)
+                .addComponent(btnTao)
                 .addGap(29, 29, 29))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -250,14 +248,11 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         btnSua.setBackground(new java.awt.Color(51, 153, 255));
         btnSua.setForeground(new java.awt.Color(255, 255, 255));
         btnSua.setText("Sửa");
-<<<<<<< HEAD
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
             }
         });
-=======
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
 
         btnXoa.setBackground(new java.awt.Color(51, 153, 255));
         btnXoa.setForeground(new java.awt.Color(255, 255, 255));
@@ -435,14 +430,14 @@ public class QuanLiCanBo extends javax.swing.JPanel {
             cbbNganh.addItem("Sinh học ứng dụng");
             cbbNganh.addItem("Thú y");
             cbbNganh.addItem("Thú y (Dược Thú y)");
-        }else if(cbbKhoa.getSelectedItem().equals("Khoa Ngoại Ngữ")){
+        }else if(cbbKhoa.getSelectedItem().equals("Khoa Ngoại ngữ")){
             cbbNganh.removeAllItems();
             cbbNganh.addItem("Ngôn ngữ Anh");
             cbbNganh.addItem("Ngôn ngữ Anh (Phiên dịch - Biên dịch tiếng Anh)");
             cbbNganh.addItem("Ngôn ngữ Pháp");
             cbbNganh.addItem("Sư Phạm Tiếng Anh");
             cbbNganh.addItem("Sư phạm Tiếng Pháp");
-        }else if(cbbKhoa.getSelectedItem().equals("Khoa Phát triển nông thôn")){
+        }else if(cbbKhoa.getSelectedItem().equals("Khoa Phát triển Nông thôn")){
             cbbNganh.removeAllItems();
             cbbNganh.addItem("Khuyến nông");
             cbbNganh.addItem("Kinh doanh nông nghiệp");
@@ -490,11 +485,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
     };
     
     private Connection con = null;
-<<<<<<< HEAD
     public void loadTable(){
-=======
-    private void loadTable(){
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
          try {
             con = Connect.connect();
             
@@ -520,11 +511,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         }
     } 
     
-<<<<<<< HEAD
     public void clearTable(){
-=======
-    private void ClearTable(){
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         int dem = tblCB.getRowCount();
         try{
         while (dem > 0 ){
@@ -577,27 +564,6 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         txtMaT.setText((String) MaT);
     }
     
-<<<<<<< HEAD
-    private void Sua(){
-        SuaTTCb s = new SuaTTCb();
-        int i = tblCB.getSelectedRow();
-        Object Ma = tableModel.getValueAt(i, 0);
-        Object HoTen = tableModel.getValueAt(i, 1);
-        Object Em =  tableModel.getValueAt(i, 2);
-        Object Khoa = tableModel.getValueAt(i, 3);
-        Object Nganh = tableModel.getValueAt(i, 4);
-        Object MaT = tableModel.getValueAt(i, 5);
-        s.txtMa.setText((String) Ma);
-        s.txtHoTen.setText((String) HoTen);
-        s.txtEM.setText((String) Em);
-        s.cbbKhoa.setSelectedItem(Khoa);
-        s.cbbNganh.setSelectedItem(Nganh);
-        s.txtMaT.setText((String) MaT);
-        s.setVisible(true);
-    }
-    
-=======
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
     private void Tim(){
         try {
             
@@ -621,6 +587,23 @@ public class QuanLiCanBo extends javax.swing.JPanel {
             ex.printStackTrace();
         }
     }
+    private void Sua(){
+        SuaTTCb s = new SuaTTCb();
+        int i = tblCB.getSelectedRow();
+        Object Ma = tableModel.getValueAt(i, 0);
+        Object HoTen = tableModel.getValueAt(i, 1);
+        Object Em =  tableModel.getValueAt(i, 2);
+        Object Khoa = tableModel.getValueAt(i, 3);
+        Object Nganh = tableModel.getValueAt(i, 4);
+        Object MaT = tableModel.getValueAt(i, 5);
+        s.txtMa.setText((String) Ma);
+        s.txtHoTen.setText((String) HoTen);
+        s.txtEM.setText((String) Em);
+        s.cbbKhoa.setSelectedItem(Khoa);
+        s.cbbNganh.setSelectedItem(Nganh);
+        s.txtMaT.setText((String) MaT);
+        s.setVisible(true);
+    }
     
     private void Xoa(){
           try {
@@ -629,7 +612,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
             int i = tblCB.getSelectedRow();
             String Ma = (String) tableModel.getValueAt(i, 0);
             
-            String Em = "Delete from canbo where MSSV ='"+Ma+"'";
+            String Em = "Delete from canbo where MSCB ='"+Ma+"'";
             st.executeUpdate(Em);
             con.close();
         } catch (Exception ex) {
@@ -643,7 +626,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
     }//GEN-LAST:event_cbbKhoaItemStateChanged
 
     String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-    private void TaoSVBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TaoSVBtnActionPerformed
+    private void btnTaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoActionPerformed
         if(txtMa.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Mã cán bộ không được trống!");
         }else{
@@ -655,41 +638,36 @@ public class QuanLiCanBo extends javax.swing.JPanel {
                 }else if(!txtEM.getText().matches(EMAIL_REGEX)){
                     JOptionPane.showMessageDialog(null, "Email không hợp lệ!");
                 }else{
-                    if(txtMaT.getText().equals("")){
-                        JOptionPane.showMessageDialog(null, "Mã số thẻ không được trống!");
-                    }else{
-                        String sql = "select * from canbo where MSCB = ?";
-                try{
-                   con = Connect.connect();
-                   PreparedStatement pst = con.prepareStatement(sql);
-                   pst.setString(1,txtMa.getText());
+                    String sql = "select * from canbo where MSCB = ?";
+                    try{
+                       con = Connect.connect();
+                       PreparedStatement pst = con.prepareStatement(sql);
+                       pst.setString(1,txtMa.getText());
 
-                   ResultSet rs = pst.executeQuery();
-                   if(rs.next()){
-                       JOptionPane.showMessageDialog(null, "Mã cán bộ đã tồn tại!!");
-                   }else{
-                      
-                           Them();
-<<<<<<< HEAD
-                           clearTable();
-=======
-                           ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
-                           loadTable();
-                           JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
-                           textRong();
-                        }
-                       
-               } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
-                }
+                       ResultSet rs = pst.executeQuery();
+                       if(rs.next()){
+                           JOptionPane.showMessageDialog(null, "Mã cán bộ đã tồn tại!!");
+                       }else{
+
+                               Them();
+                               clearTable();
+                               loadTable();
+                               JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
+                               textRong();
+                            }
+
+                   } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
                     }
+
                 }
             }
         }
         
         
-    }//GEN-LAST:event_TaoSVBtnActionPerformed
+        
+        
+    }//GEN-LAST:event_btnTaoActionPerformed
 
     private void tblCBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCBMouseClicked
         loadText();
@@ -699,24 +677,14 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         if(txtTim.getText().equals("")){
            JOptionPane.showMessageDialog(null, "Tìm kiếm không được trống");
         }else{
-<<<<<<< HEAD
             clearTable();
-=======
-            ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
             Tim();
             int Count = tblCB.getRowCount();
             if(Count == 0){
                 JOptionPane.showMessageDialog(null, "Không tìm được dữ liệu này!");
-<<<<<<< HEAD
                 clearTable();
             }else{
                 clearTable();
-=======
-                ClearTable();
-            }else{
-                ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                 Tim();
                 JOptionPane.showMessageDialog(null, "Tìm kiếm dữ liệu thành công!");
            }
@@ -725,11 +693,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
 
     private void txtTimFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimFocusGained
         txtTim.setText("");
-<<<<<<< HEAD
         clearTable();
-=======
-        ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
         loadTable();
     }//GEN-LAST:event_txtTimFocusGained
 
@@ -742,11 +706,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
             if(n == JOptionPane.YES_OPTION){
                 Xoa();
                 JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công!");
-<<<<<<< HEAD
                 clearTable();
-=======
-                ClearTable();
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
                 loadTable();
                 textRong();
             }else 
@@ -754,7 +714,6 @@ public class QuanLiCanBo extends javax.swing.JPanel {
             } 
     }//GEN-LAST:event_btnXoaActionPerformed
 
-<<<<<<< HEAD
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int i = tblCB.getSelectedRow();
         if(i == -1){
@@ -766,32 +725,12 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
-=======
->>>>>>> ab4e7b332d57a209f87f5fefc0f2b040e2f8c921
     
-    public final class LengthRestrictedDocument extends PlainDocument {
-
-      private final int limit;
-
-      public LengthRestrictedDocument(int limit) {
-        this.limit = limit;
-      }
-
-      @Override
-      public void insertString(int offs, String str, AttributeSet a)
-          throws BadLocationException {
-        if (str == null)
-          return;
-
-        if ((getLength() + str.length()) <= limit) {
-          super.insertString(offs, str, a);
-        }
-      }
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton TaoSVBtn;
     private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnTao;
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbbKhoa;
