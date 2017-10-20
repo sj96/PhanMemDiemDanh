@@ -5,6 +5,11 @@
  */
 package DiemDanh;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author trana
@@ -16,12 +21,110 @@ public class Dangkythamgia extends javax.swing.JPanel {
      */
     public Dangkythamgia() {
         initComponents();
+        clearTableCB();
+        loadTableCB();
+        ClearTableSV();
+        loadTableSV();
     }
-    
-    public void loader (int mask, String tenSK){
+    QuanLiSuKien_user qlu;
+    public void DangKy (int mask, String tenSK){
         
     }
+    
+    public static DefaultTableModel tableModelCB = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column)
+        {
+            return false;
+        }
+    };
+    
+    private Connection con = null;
+    public void loadTableCB(){
+         try {
+            con = Connect.connect();
+            
+            Statement s = con.createStatement();
+            
+            ResultSet rs = s.executeQuery("SELECT * FROM canbo");
+            String []colsName = {"Mscb", "Họ tên","Email","Khoa","Ngành","Mã số thẻ"};
+            tableModelCB.setColumnIdentifiers(colsName); 
+            tblCB.setModel(tableModelCB);
+            while(rs.next()){ 
+                Object rows[] = new Object[6];
+                rows[0] = rs.getString(1);
+                rows[1] = rs.getString(2);  
+                rows[2] = rs.getString(3);
+                rows[3] = rs.getString(6);
+                rows[4] = rs.getString(5);
+                rows[5] = rs.getString(4);
+                tableModelCB.addRow(rows);
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    } 
+    
+    public void clearTableCB(){
+        int dem = tblCB.getRowCount();
+        try{
+        while (dem > 0 ){
+            tableModelCB.removeRow(0);
+        }
+        }catch(java.lang.ArrayIndexOutOfBoundsException e){
+            e.getMessage();
+        }
+    }
 
+    ///Sinh Vien
+    public static DefaultTableModel tableModelSV = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column)
+        {
+            return false;
+        }
+    };
+
+    public void loadTableSV(){
+         try {
+            con = Connect.connect();
+            
+            Statement s = con.createStatement();
+            
+            ResultSet rs = s.executeQuery("SELECT * FROM sinhvien");
+            String []colsName = {"Mssv", "Họ tên","Email","Khoa","Ngành","Khóa","Mã số thẻ"};
+            tableModelSV.setColumnIdentifiers(colsName); 
+            tblSV.setModel(tableModelSV);
+            while(rs.next()){ 
+                Object rows[] = new Object[7];
+                rows[0] = rs.getString(1);
+                rows[1] = rs.getString(2);  
+                rows[2] = rs.getString(3);
+                rows[3] = rs.getString(6);
+                rows[4] = rs.getString(5);
+                rows[5] = rs.getString(7);
+                rows[6] = rs.getString(4);
+                tableModelSV.addRow(rows);
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    } 
+    
+    private void ClearTableSV(){
+        int dem = tblSV.getRowCount();
+        try{
+        while (dem > 0 ){
+            tableModelSV.removeRow(0);
+        }
+        }catch(java.lang.ArrayIndexOutOfBoundsException e){
+            e.getMessage();
+        }
+    }
+   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,29 +135,29 @@ public class Dangkythamgia extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDSThamGia = new javax.swing.JTable();
         CTSuKien = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lbTenSK = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lbNgaySK = new javax.swing.JLabel();
+        lbDiaDiem = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         TimKiemBtn2 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        TimKiemBtn3 = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         jTextField4 = new javax.swing.JTextField();
         TimKiemBtn4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        CBTable = new javax.swing.JTable();
+        tblCB = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         TimKiemBtn = new javax.swing.JButton();
         TimKiemBtn1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        SVTable = new javax.swing.JTable();
+        tblSV = new javax.swing.JTable();
         TimKiemBtn5 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -62,7 +165,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1000, 511));
         setPreferredSize(new java.awt.Dimension(1000, 511));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDSThamGia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -81,18 +184,18 @@ public class Dangkythamgia extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(30);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(30);
+        jScrollPane3.setViewportView(tblDSThamGia);
+        if (tblDSThamGia.getColumnModel().getColumnCount() > 0) {
+            tblDSThamGia.getColumnModel().getColumn(0).setMinWidth(30);
+            tblDSThamGia.getColumnModel().getColumn(0).setMaxWidth(30);
         }
 
         CTSuKien.setBackground(new java.awt.Color(255, 255, 255));
         CTSuKien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("<tên sự kiện>");
+        lbTenSK.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbTenSK.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTenSK.setText("<tên sự kiện>");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Sự kiện");
@@ -103,13 +206,13 @@ public class Dangkythamgia extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Địa điểm:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("<thời gian>");
+        lbNgaySK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbNgaySK.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbNgaySK.setText("<thời gian>");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("<địa điểm>");
+        lbDiaDiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbDiaDiem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDiaDiem.setText("<địa điểm>");
 
         javax.swing.GroupLayout CTSuKienLayout = new javax.swing.GroupLayout(CTSuKien);
         CTSuKien.setLayout(CTSuKienLayout);
@@ -121,15 +224,15 @@ public class Dangkythamgia extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CTSuKienLayout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbTenSK, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(CTSuKienLayout.createSequentialGroup()
                         .addGroup(CTSuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(CTSuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lbDiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbNgaySK, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(6, 6, 6))
         );
         CTSuKienLayout.setVerticalGroup(
@@ -138,15 +241,15 @@ public class Dangkythamgia extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(CTSuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbTenSK, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CTSuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(lbNgaySK))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CTSuKienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(lbDiaDiem))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -163,11 +266,11 @@ public class Dangkythamgia extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        TimKiemBtn3.setBackground(new java.awt.Color(51, 153, 255));
-        TimKiemBtn3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        TimKiemBtn3.setForeground(new java.awt.Color(255, 255, 255));
-        TimKiemBtn3.setText("Thêm");
-        TimKiemBtn3.setToolTipText("");
+        btnThem.setBackground(new java.awt.Color(51, 153, 255));
+        btnThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
+        btnThem.setToolTipText("");
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -176,7 +279,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
         TimKiemBtn4.setForeground(new java.awt.Color(255, 255, 255));
         TimKiemBtn4.setText("Tìm kiếm");
 
-        CBTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblCB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -202,10 +305,10 @@ public class Dangkythamgia extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(CBTable);
-        if (CBTable.getColumnModel().getColumnCount() > 0) {
-            CBTable.getColumnModel().getColumn(0).setMinWidth(30);
-            CBTable.getColumnModel().getColumn(0).setMaxWidth(30);
+        jScrollPane1.setViewportView(tblCB);
+        if (tblCB.getColumnModel().getColumnCount() > 0) {
+            tblCB.getColumnModel().getColumn(0).setMinWidth(30);
+            tblCB.getColumnModel().getColumn(0).setMaxWidth(30);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -217,7 +320,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(TimKiemBtn3)
+                        .addComponent(btnThem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -231,7 +334,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TimKiemBtn4)
-                    .addComponent(TimKiemBtn3))
+                    .addComponent(btnThem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                 .addContainerGap())
@@ -254,7 +357,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
         TimKiemBtn1.setText("Thêm");
         TimKiemBtn1.setToolTipText("");
 
-        SVTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblSV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -273,7 +376,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(SVTable);
+        jScrollPane2.setViewportView(tblSV);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -352,30 +455,30 @@ public class Dangkythamgia extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable CBTable;
     private javax.swing.JPanel CTSuKien;
-    private javax.swing.JTable SVTable;
     private javax.swing.JButton TimKiemBtn;
     private javax.swing.JButton TimKiemBtn1;
     private javax.swing.JButton TimKiemBtn2;
-    private javax.swing.JButton TimKiemBtn3;
     private javax.swing.JButton TimKiemBtn4;
     private javax.swing.JButton TimKiemBtn5;
+    private javax.swing.JButton btnThem;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    public javax.swing.JLabel lbDiaDiem;
+    public javax.swing.JLabel lbNgaySK;
+    public javax.swing.JLabel lbTenSK;
+    private javax.swing.JTable tblCB;
+    private javax.swing.JTable tblDSThamGia;
+    private javax.swing.JTable tblSV;
     // End of variables declaration//GEN-END:variables
 }

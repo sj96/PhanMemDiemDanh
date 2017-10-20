@@ -622,7 +622,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                 }else if(!txtEM.getText().matches(EMAIL_REGEX)){
                     JOptionPane.showMessageDialog(null, "Email không hợp lệ!");
                 }else{
-                        String sql = "select * from sinhvien where MSSV = ?";
+                String sql = "select * from sinhvien where MSSV = ?";
                 try{
                    con = Connect.connect();
                    PreparedStatement pst = con.prepareStatement(sql);
@@ -780,6 +780,10 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
             Sua();
             clearTable();
             loadTable();
+            txtHoTen.setText("");
+            txtMa.setText("");
+            txtEM.setText("");
+            txtMaT.setText("");
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 

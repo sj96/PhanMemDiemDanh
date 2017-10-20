@@ -722,7 +722,11 @@ public class QuanLiCanBo extends javax.swing.JPanel {
             Sua();
             clearTable();
             loadTable();
-        }
+            txtEM.setText("");
+            txtHoTen.setText("");
+            txtMa.setText("");
+            txtMaT.setText("");
+       }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     

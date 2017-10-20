@@ -31,7 +31,7 @@ public class DangNhap extends javax.swing.JPanel {
     public void check(){
         if(txtTK.getText().equals("admin") && pswMK.getText().equals("admin")){
             mf.setisAdmin(true);
-            JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+//            JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
             mf.btnDangNhap.setText("Đăng xuất");
             mf.lbNameUser.setText("admin");
             mf.lbNameUser.setVisible(true);
@@ -43,7 +43,9 @@ public class DangNhap extends javax.swing.JPanel {
             txtTK.setText("");
             pswMK.setText("");
         }else{
-            JOptionPane.showMessageDialog(null, "Đăng nhập thất bại!");
+            JOptionPane.showMessageDialog(null, "Sai tài khoản hoặc mật khẩu. Yêu cầu nhập lại");
+            txtTK.setText("");
+            pswMK.setText("");
         }
     }
     

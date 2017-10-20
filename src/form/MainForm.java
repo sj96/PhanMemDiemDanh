@@ -1,8 +1,13 @@
 package form;
 
 
-public class MainForm extends javax.swing.JFrame {
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+
+public class MainForm extends javax.swing.JFrame {
+    
     private static Boolean isAdmin = false;
     public void setisAdmin(boolean isAdmin){
         this.isAdmin = isAdmin;
@@ -13,6 +18,7 @@ public class MainForm extends javax.swing.JFrame {
         resetForm();
         dashBroad1.setVisible(true);
         baoCao11.setPanel(baoCao21);
+        quanLiSuKien1.setPanel(dangkythamgia1);
         dangNhap1.setMf(this);
     }
     
@@ -293,6 +299,13 @@ public class MainForm extends javax.swing.JFrame {
             btnQuanLiSinhVien.setEnabled(false);
             resetForm();
             dashBroad1.setVisible(true);
+            quanLiSuKien_user1.clearTable();
+            quanLiSuKien_user1.loadTable();
+            try {
+                quanLiSuKien_user1.loadTableDate();
+            } catch (ParseException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_btnDangNhapActionPerformed
