@@ -566,7 +566,6 @@ public class QuanLiCanBo extends javax.swing.JPanel {
     
     private void Tim(){
         try {
-            
             con = Connect.connect();
             Statement s = con.createStatement();
             String Search = txtTim.getText();

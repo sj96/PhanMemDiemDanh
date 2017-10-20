@@ -299,8 +299,8 @@ public class MainForm extends javax.swing.JFrame {
             btnQuanLiSinhVien.setEnabled(false);
             resetForm();
             dashBroad1.setVisible(true);
-            quanLiSuKien_user1.clearTable();
-            quanLiSuKien_user1.loadTable();
+//            quanLiSuKien_user1.clearTable();
+//            quanLiSuKien_user1.loadTable();
             try {
                 quanLiSuKien_user1.loadTableDate();
             } catch (ParseException ex) {

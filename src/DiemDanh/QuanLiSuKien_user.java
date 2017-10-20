@@ -222,7 +222,6 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
      }
      
      private void HuySK(){
@@ -507,7 +506,7 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
-       int i = tblSuKien.getSelectedRow();
+        int i = tblSuKien.getSelectedRow();
         if(i == -1){
             JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 sự kiện");
         }else{

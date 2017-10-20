@@ -228,6 +228,57 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         return ktra;
     }
     
+    private boolean kTraNgay(java.util.Date NgaySK, java.util.Date GioSK, java.util.Date NgayHT) {
+        boolean ktra = false;
+        SimpleDateFormat ngay = new SimpleDateFormat("dd");
+        SimpleDateFormat thang = new SimpleDateFormat("MM");
+        SimpleDateFormat nam = new SimpleDateFormat("yyyy");
+        SimpleDateFormat gio = new SimpleDateFormat("HH");
+        SimpleDateFormat phut = new SimpleDateFormat("mm");
+        
+        int ngaySK = Integer.parseInt(ngay.format(NgaySK));
+        int ngayHT = Integer.parseInt(ngay.format(NgayHT));
+        int thangSK = Integer.parseInt(thang.format(NgaySK));
+        int thangHT = Integer.parseInt(thang.format(NgayHT));
+        int namSK = Integer.parseInt(nam.format(NgaySK));
+        int namHT = Integer.parseInt(nam.format(NgayHT));
+        int gioSK = Integer.parseInt(gio.format(GioSK));
+        int gioHT = Integer.parseInt(gio.format(NgayHT));
+        int phutSK = Integer.parseInt(phut.format(GioSK));
+        int phutHT = Integer.parseInt(phut.format(NgayHT));
+        
+        if(namHT == namSK){
+            if(thangHT == thangSK){
+                if(ngayHT == ngaySK){
+                    if(gioHT == gioSK){
+                        if(phutHT < phutSK ){
+                            ktra = true;
+                        }else if (phutHT >= phutSK){
+                            ktra = false;
+                        }
+                    }else if(gioSK > gioHT){
+                        ktra = true;
+                    }else{
+                        ktra = false;
+                    }
+                }else if(ngaySK > ngayHT){
+                    ktra = true;
+                }else{
+                    ktra = false;
+                }
+            }else if(thangSK > thangHT){
+                ktra = true;
+            }else{
+                ktra = false;
+            }
+        }else if(namSK > namHT){
+            ktra = true;
+        }else{
+            ktra = false;
+        }
+        return ktra;
+    }
+    
     private void Them(){
             try {
             con = Connect.connect();
@@ -299,7 +350,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         s.setVisible(true);
     }
     
-          private void DKSK() throws ParseException{
+        private void DKSK() throws ParseException{
         int i = tblSuKien.getSelectedRow();
         Object maSK = tableModel.getValueAt(i, 0);
         Object tenSK = tableModel.getValueAt(i, 1);
@@ -314,6 +365,10 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         dk.lbTenSK.setText((String) tenSK);
         dk.lbNgaySK.setText(ngayGio);
         dk.lbDiaDiem.setText((String) DiaDiem);
+        dk.getMaSK((String) maSK);
+        dk.ClearTableDSTG();
+        dk.loadTableDSTGSV((String) maSK);
+        dk.loadTableDSTGCB((String) maSK);
         this.setVisible(false);
         dk.setVisible(true);
     }
@@ -786,13 +841,23 @@ public class QuanLiSuKien extends javax.swing.JPanel {
     
     
     private void btnDSThamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDSThamGiaActionPerformed
-                 int i = tblSuKien.getSelectedRow();
+        int i = tblSuKien.getSelectedRow();
+        java.util.Date NgayHT = new java.util.Date();
+        SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
         if(i == -1){
             JOptionPane.showMessageDialog(null, "Chọn sự kiện trước khi đăng ký!");
         }else{
             try {
+                Object ngayBD =  tableModel.getValueAt(i, 2);
+                Object gioBD = tableModel.getValueAt(i, 3);
+                java.util.Date NgaySK = out.parse((String) ngayBD);
+                java.util.Date GioSK = outtime.parse((String) gioBD);
+                if(kTraNgay(NgaySK, GioSK, NgayHT) == false){
+                    JOptionPane.showMessageDialog(null, "Ngày đã quá hạn vui lòng chọn lại");
+                }else{
                 DKSK();
-                
+                }
             } catch (ParseException ex) {
                 Logger.getLogger(QuanLiSuKien.class.getName()).log(Level.SEVERE, null, ex);
             }
