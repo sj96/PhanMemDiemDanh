@@ -6,19 +6,33 @@
 package DiemDanh;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -72,7 +86,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         btnXoa = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnImport = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1000, 511));
@@ -303,10 +317,15 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Import từ file");
 
-        jButton1.setBackground(new java.awt.Color(51, 153, 255));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Import");
+        btnImport.setBackground(new java.awt.Color(51, 153, 255));
+        btnImport.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnImport.setForeground(new java.awt.Color(255, 255, 255));
+        btnImport.setText("Import");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -318,7 +337,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(104, 104, 104)
-                .addComponent(jButton1)
+                .addComponent(btnImport)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -327,7 +346,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnImport)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -603,6 +622,101 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         txtMaT.setText((String) MaT);
     }
     
+    private void importSV(){
+        Object[] list = new Object[7];
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".XLSX files", "xlsx");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            File file = fileChooser.getSelectedFile();
+            Vector cellVectorHolder = new Vector();
+            try {
+                List l = new ArrayList();
+                // get file
+                FileInputStream fis = new FileInputStream(file);
+                // get the workbook from file
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                // get the first sheet
+                XSSFSheet dpSheet = wb.getSheetAt(0);
+                // get row
+                Iterator<Row> iterRow = dpSheet.rowIterator();
+                
+                while (iterRow.hasNext())
+                {
+                    Row r = iterRow.next();
+                    // get cells in row
+                    Iterator<Cell> iterCell = r.iterator();
+                    
+                    while (iterCell.hasNext())
+                    {
+                        Cell c = iterCell.next();
+                        l.add(c);
+                    }
+                    cellVectorHolder.addElement(l);
+                }
+                
+                for (int i = 0; i < l.size(); i++)
+                {    
+                    if(i%6==0){
+                        list[0] = l.get(i);
+                    }else if(i%6==1){
+                        list[1] = l.get(i);
+                    }else if(i%6==2){
+                        list[2] = l.get(i);
+                    }else if(i%6==3){
+                        list[3] = l.get(i);
+                    }else if(i%6==4){
+                        list[4] = l.get(i);
+                    }else if(i%6==5){
+                        list[5] = l.get(i);
+                    }
+                    
+                    if(i%6==5){
+                        
+                         String sql = "select * from sinhvien where MSSV = ?";
+                try{
+                   con = Connect.connect();
+                   PreparedStatement pst = con.prepareStatement(sql);
+                   pst.setString(1,(String.valueOf(list[0])));
+                   ResultSet rs = pst.executeQuery();
+                   if(rs.next()){
+                       System.out.println("Mã sinh viên tồn tại "+list[0]);
+                   }else{
+                        try {
+                        con = Connect.connect();
+                        Statement st = con.createStatement();
+                        String MaT = "";
+                        String SK = "insert into sinhvien  values('"+list[0]+"','"+list[1]+"','"+list[2]+"','"+MaT+"','"+list[3]+"','"+list[4]+"',"+ list[5]+")";
+                        st.executeUpdate(SK);
+                        con.close();
+                        ClearTable();
+                        loadTable();
+                        JOptionPane.showMessageDialog(null, "Thành công");
+                        } catch (Exception ex) {
+    //                            System.out.println("MSSV trùng " + list[0]);
+                                ex.printStackTrace();
+                        }
+                           
+                        }
+                    } catch (Exception ex) {
+                         JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                    }
+                        
+                    }
+//                    System.out.println(l.get(i) + "");
+                }
+                
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(QuanLiSinhVien.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(QuanLiSinhVien.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     private void cbbKhoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbKhoaItemStateChanged
         nganhKhoa();
 //        cbbNganh.setEnabled(true);
@@ -786,35 +900,19 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+        importSV();
+    }//GEN-LAST:event_btnImportActionPerformed
 
-    public final class LengthRestrictedDocument extends PlainDocument {
-
-      private final int limit;
-
-      public LengthRestrictedDocument(int limit) {
-        this.limit = limit;
-      }
-
-      @Override
-      public void insertString(int offs, String str, AttributeSet a)
-          throws BadLocationException {
-        if (str == null)
-          return;
-
-        if ((getLength() + str.length()) <= limit) {
-          super.insertString(offs, str, a);
-        }
-      }
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImport;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaoSV;
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbbKhoa;
     private javax.swing.JComboBox<String> cbbNganh;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -6,15 +6,31 @@
 package DiemDanh;
 
 import static DiemDanh.QuanLiSinhVien.tableModel;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -65,7 +81,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         btnXoa = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnImport = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(996, 496));
@@ -270,10 +286,15 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Import từ file");
 
-        jButton1.setBackground(new java.awt.Color(51, 153, 255));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Import");
+        btnImport.setBackground(new java.awt.Color(51, 153, 255));
+        btnImport.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnImport.setForeground(new java.awt.Color(255, 255, 255));
+        btnImport.setText("Import");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -281,12 +302,12 @@ public class QuanLiCanBo extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(135, 135, 135))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addComponent(btnImport)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +315,7 @@ public class QuanLiCanBo extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnImport)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -619,6 +640,99 @@ public class QuanLiCanBo extends javax.swing.JPanel {
         }
      }
     
+    private void importSV(){
+        Object[] list = new Object[7];
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".XLSX files", "xlsx");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            File file = fileChooser.getSelectedFile();
+            Vector cellVectorHolder = new Vector();
+            try {
+                List l = new ArrayList();
+                // get file
+                FileInputStream fis = new FileInputStream(file);
+                // get the workbook from file
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                // get the first sheet
+                XSSFSheet dpSheet = wb.getSheetAt(0);
+                // get row
+                Iterator<Row> iterRow = dpSheet.rowIterator();
+                
+                while (iterRow.hasNext())
+                {
+                    Row r = iterRow.next();
+                    // get cells in row
+                    Iterator<Cell> iterCell = r.iterator();
+                    
+                    while (iterCell.hasNext())
+                    {
+                        Cell c = iterCell.next();
+                        l.add(c);
+                    }
+                    cellVectorHolder.addElement(l);
+                }
+                
+                for (int i = 0; i < l.size(); i++)
+                {    
+                    if(i%5==0){
+                        list[0] = l.get(i);
+                    }else if(i%5==1){
+                        list[1] = l.get(i);
+                    }else if(i%5==2){
+                        list[2] = l.get(i);
+                    }else if(i%5==3){
+                        list[3] = l.get(i);
+                    }else if(i%5==4){
+                        list[4] = l.get(i);
+                    }
+                    
+                    if(i%5==4){
+                        
+                         String sql = "select * from canbo where MSCB = ?";
+                try{
+                   con = Connect.connect();
+                   PreparedStatement pst = con.prepareStatement(sql);
+                   pst.setString(1,(String.valueOf(list[0])));
+                   ResultSet rs = pst.executeQuery();
+                   if(rs.next()){
+                       System.out.println("Mã cán bộ tồn tại "+list[0]);
+                   }else{
+                        try {
+                        con = Connect.connect();
+                        Statement st = con.createStatement();
+                        String MaT = "";
+                        String SK = "insert into canbo  values('"+list[0]+"','"+list[1]+"','"+list[2]+"','"+MaT+"','"+list[3]+"','"+list[4]+"')";
+                        st.executeUpdate(SK);
+                        con.close();
+                        clearTable();
+                        loadTable();
+                        JOptionPane.showMessageDialog(null, "Thành công");
+                        } catch (Exception ex) {
+    //                            System.out.println("MSCB trùng " + list[0]);
+                                ex.printStackTrace();
+                        }
+                           
+                        }
+                    } catch (Exception ex) {
+                         JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                    }
+                        
+                    }
+//                    System.out.println(l.get(i) + "");
+                }
+                
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(QuanLiCanBo.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(QuanLiCanBo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     private void cbbKhoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbKhoaItemStateChanged
         nganhKhoa();
 //        cbbNganh.setEnabled(true);
@@ -728,17 +842,21 @@ public class QuanLiCanBo extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+        importSV();
+    }//GEN-LAST:event_btnImportActionPerformed
+
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImport;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTao;
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbbKhoa;
     private javax.swing.JComboBox<String> cbbNganh;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

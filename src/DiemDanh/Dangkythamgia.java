@@ -5,12 +5,28 @@
  */
 package DiemDanh;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -296,6 +312,120 @@ public class Dangkythamgia extends javax.swing.JPanel {
             ex.printStackTrace();
         }
     }
+    
+    private void importDSTG(){
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".XLSX files", "xlsx");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            File file = fileChooser.getSelectedFile();
+            Vector cellVectorHolder = new Vector();
+            try {
+                List l = new ArrayList();
+                // get file
+                FileInputStream fis = new FileInputStream(file);
+                // get the workbook from file
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                // get the first sheet
+                XSSFSheet dpSheet = wb.getSheetAt(0);
+                // get row
+                Iterator<Row> iterRow = dpSheet.rowIterator();
+                
+                while (iterRow.hasNext())
+                {
+                    Row r = iterRow.next();
+                    // get cells in row
+                    Iterator<Cell> iterCell = r.iterator();
+                    
+                    while (iterCell.hasNext())
+                    {
+                        Cell c = iterCell.next();
+                        l.add(c);
+                    }
+                    cellVectorHolder.addElement(l);
+                }
+                
+                for (int i = 0; i < l.size(); i++)
+                {
+                    String MaDK = MaSK + String.valueOf(l.get(i));
+                    String sql = "select * from dangky where MaDK = ?";
+                try{
+                   con = Connect.connect();
+                   PreparedStatement pst = con.prepareStatement(sql);
+                   pst.setString(1,MaDK);
+
+                   ResultSet rs = pst.executeQuery();
+                   if(rs.next()){
+                       System.out.println("Mã đăng ký đã tồn tại "+MaDK);
+                   }else{
+                        String sql1 = "select * from canbo where MSCB = ?";
+                        try{
+                            PreparedStatement pst1 = con.prepareStatement(sql1);
+                            pst1.setString(1, String.valueOf(l.get(i)));
+                            ResultSet rs1 = pst1.executeQuery();
+                           if(rs1.next()){
+                               //them can bo
+                               try {
+                                con = Connect.connect();
+                                Statement st = con.createStatement();
+                                String SK = "insert into dangky  values('"+MaDK+"','"+MaSK+"','"+l.get(i)+"')";
+                                st.executeUpdate(SK);
+                                con.close();
+                                   System.out.println("cb");
+                                
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                           }else{
+                                String sql2 = "select * from sinhvien where MSSV = ?";
+                                try{
+                                    PreparedStatement pst2 = con.prepareStatement(sql2);
+                                    pst2.setString(1, String.valueOf(l.get(i)));
+                                    ResultSet rs2 = pst2.executeQuery();
+                                   if(rs2.next()){
+                                       //them SV
+                                       try {
+                                        con = Connect.connect();
+                                        Statement st = con.createStatement();
+                                        String SK = "insert into dangky  values('"+MaDK+"','"+MaSK+"','"+l.get(i)+"')";
+                                        st.executeUpdate(SK);
+                                        con.close();
+                                           System.out.println("sv");
+//                                        JOptionPane.showMessageDialog(null, "Thành công");
+                                        } catch (Exception ex) {
+                                            ex.printStackTrace();
+                                        }
+                                   }else{
+                                       System.out.println("Không có người: "+ l.get(i));
+                                   }
+                                } catch (Exception ex) {
+                                    JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                                }  
+                           }
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                        }
+                    }
+                    ClearTableDSTG();
+                    loadTableDSTGCB(MaSK);
+                    loadTableDSTGSV(MaSK);
+
+                       
+               } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                }
+                
+                }
+                JOptionPane.showMessageDialog(null, "Thành công");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Dangkythamgia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Dangkythamgia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -324,7 +454,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
         btnThemSV = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSV = new javax.swing.JTable();
-        TimKiemBtn5 = new javax.swing.JButton();
+        btnImport = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1000, 511));
@@ -613,11 +743,16 @@ public class Dangkythamgia extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("  Sinh viên  ", jPanel2);
 
-        TimKiemBtn5.setBackground(new java.awt.Color(51, 153, 255));
-        TimKiemBtn5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        TimKiemBtn5.setForeground(new java.awt.Color(255, 255, 255));
-        TimKiemBtn5.setText("Import...");
-        TimKiemBtn5.setToolTipText("");
+        btnImport.setBackground(new java.awt.Color(51, 153, 255));
+        btnImport.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnImport.setForeground(new java.awt.Color(255, 255, 255));
+        btnImport.setText("Import...");
+        btnImport.setToolTipText("");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -630,7 +765,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(105, 105, 105)
-                        .addComponent(TimKiemBtn5)
+                        .addComponent(btnImport)
                         .addGap(15, 15, 15)
                         .addComponent(btnXoa))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -650,7 +785,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(TimKiemBtn5)
+                            .addComponent(btnImport)
                             .addComponent(btnXoa))
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -774,10 +909,14 @@ public class Dangkythamgia extends javax.swing.JPanel {
         loadTableCB();
     }//GEN-LAST:event_txtTimKiemCBFocusGained
 
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+        importDSTG();
+    }//GEN-LAST:event_btnImportActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CTSuKien;
-    private javax.swing.JButton TimKiemBtn5;
+    private javax.swing.JButton btnImport;
     private javax.swing.JButton btnThemCB;
     private javax.swing.JButton btnThemSV;
     private javax.swing.JButton btnTimKiemCB;
