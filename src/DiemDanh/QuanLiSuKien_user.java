@@ -6,6 +6,8 @@
 package DiemDanh;
 
 import static DiemDanh.QuanLiSinhVien.tableModel;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -17,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,6 +40,9 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
         btnHuyDangKy.setEnabled(false);
         txtTimKiem.setEnabled(false);
         btnTimKiem.setEnabled(false);
+//        setRows(tblSuKien, txtMa.getText());
+        System.out.println("QL SK user");
+//        getNewRenderedTable(tblSuKien);
     }
       
     private static DefaultTableModel tableModel = new DefaultTableModel(){
@@ -45,6 +52,49 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
             return false;
         }
     };
+    
+    private static final int STATUS_COL = 0;
+    private static JTable getNewRenderedTable(final JTable table,String MaSK) {
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+            @Override
+            public Component getTableCellRendererComponent(JTable table,
+                    Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                String status = (String)table.getModel().getValueAt(row, 0);
+                
+                
+                if (MaSK.equals(status)) {
+                    setBackground(Color.BLACK);
+                    setForeground(Color.WHITE);
+                }
+//                } else {
+//                    setBackground(table.getBackground());
+//                    setForeground(table.getForeground());
+//                }       
+                return this;
+            }   
+        });
+        return table;
+    }
+    
+    private void setRows(final JTable table,String MS){
+        try {
+            con = Connect.connect();
+            Statement s = con.createStatement();
+            String sql = "SELECT * FROM `dangky` where `MS` = '"+MS+"' ";
+            System.out.println(MS);
+            ResultSet rs = s.executeQuery(sql);
+            while(rs.next()){ 
+                
+                getNewRenderedTable(table, rs.getString("MaSK"));
+                System.out.println(rs.getString("MaSK"));
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     
     private boolean TimSV(){
         try {
@@ -112,7 +162,7 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
             if(thangHT == thangSK){
                 if(ngayHT == ngaySK){
                     if(gioHT == gioSK){
-                        if(phutHT < phutSK ){
+                        if(phutSK - phutHT >30 ){
                             ktra = true;
                         }else if (phutHT >= phutSK){
                             ktra = false;
@@ -537,6 +587,7 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
            loadTable();
            try {
                 loadTableDate();
+//                setRows(tblSuKien, txtMa.getText());
                 btnDangKy.setEnabled(true);
                 btnHuyDangKy.setEnabled(true);
                 txtTimKiem.setEnabled(true);

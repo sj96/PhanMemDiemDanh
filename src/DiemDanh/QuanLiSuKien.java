@@ -5,6 +5,8 @@
  */
 package DiemDanh;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,7 +28,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -47,6 +51,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         initComponents();
         clearTable();
         loadTable();
+        System.out.println("QL SK");
     }
     
     public void setPanel(Dangkythamgia dk){
@@ -61,7 +66,9 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         }
     };
     
+
     
+    String m = "^[0-9]+$";
     private Connection con = null;
     public void loadTable(){
          try {
@@ -242,8 +249,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
             ktra = true;
         }else{
             ktra = false;
-        }
-            
+        }  
         return ktra;
     }
     
@@ -270,7 +276,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
             if(thangHT == thangSK){
                 if(ngayHT == ngaySK){
                     if(gioHT == gioSK){
-                        if(phutHT < phutSK ){
+                        if(phutSK - phutHT > 30 ){
                             ktra = true;
                         }else if (phutHT >= phutSK){
                             ktra = false;
@@ -296,6 +302,173 @@ public class QuanLiSuKien extends javax.swing.JPanel {
             ktra = false;
         }
         return ktra;
+    }
+    
+    private boolean kTraNgayIP(java.util.Date NgayT, java.util.Date GioT, java.util.Date NgayS, java.util.Date GioS){
+        boolean ktra = false;
+        SimpleDateFormat ngay = new SimpleDateFormat("dd");
+        SimpleDateFormat thang = new SimpleDateFormat("MM");
+        SimpleDateFormat nam = new SimpleDateFormat("yyyy");
+        SimpleDateFormat gio = new SimpleDateFormat("HH");
+        SimpleDateFormat phut = new SimpleDateFormat("mm");
+        
+        int ngayT = Integer.parseInt(ngay.format(NgayT));
+        int ngayS = Integer.parseInt(ngay.format(NgayS));
+        int thangT = Integer.parseInt(thang.format(NgayT));
+        int thangS = Integer.parseInt(thang.format(NgayS));
+        int namT = Integer.parseInt(nam.format(NgayT));
+        int namS = Integer.parseInt(nam.format(NgayS));
+        int gioT = Integer.parseInt(gio.format(GioT));
+        int gioS = Integer.parseInt(gio.format(GioS));
+        int phutT = Integer.parseInt(phut.format(GioT));
+        int phutS = Integer.parseInt(phut.format(GioS));
+        
+        if(namS == namT){
+            if(thangS == thangT){
+                if(ngayS == ngayT){
+                    if(gioS == gioT){
+                        if(phutS - phutT > 30){
+                            ktra = true;
+                        }else if (phutS <= phutT){
+                            ktra = false;
+                        }
+                    }else if(gioS > gioT){
+                        ktra = true;
+                    }else{
+                        ktra = false;
+                    }
+                }else if(ngayS > ngayT){
+                    ktra = true;
+                }else{
+                    ktra = false;
+                }
+            }else if(thangS > thangT){
+                ktra = true;
+            }else{
+                ktra = false;
+            }
+        }else if(namS > namT){
+            ktra = true;
+        }else{
+            ktra = false;
+        }
+            
+        return ktra;
+    }
+    
+    private void importSK() throws ParseException{
+        Object[] list = new Object[7];
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".XLSX files", "xlsx");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            File file = fileChooser.getSelectedFile();
+            Vector cellVectorHolder = new Vector();
+            try {
+                List l = new ArrayList();
+                // get file
+                FileInputStream fis = new FileInputStream(file);
+                // get the workbook from file
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                // get the first sheet
+                XSSFSheet dpSheet = wb.getSheetAt(0);
+                // get row
+                Iterator<Row> iterRow = dpSheet.rowIterator();
+                
+                while (iterRow.hasNext())
+                {
+                    Row r = iterRow.next();
+                    // get cells in row
+                    Iterator<Cell> iterCell = r.iterator();
+                    
+                    while (iterCell.hasNext())
+                    {
+                        Cell c = iterCell.next();
+                        l.add(c);
+                    }
+                    cellVectorHolder.addElement(l);
+                }
+                for (int i = 0; i < l.size(); i++)
+                {    
+                    if(i%7==0){
+                        list[0] = l.get(i);
+                    }else if(i%7==1){
+                        list[1] = l.get(i);
+                    }else if(i%7==2){
+                        list[2] = l.get(i);
+                    }else if(i%7==3){
+                        list[3] = l.get(i);
+                    }else if(i%7==4){
+                        list[4] = l.get(i);
+                        System.out.println(list[4]);
+                    }else if(i%7==5){
+                        list[5] = l.get(i);
+                    }else if(i%7==6){
+                        list[6] = l.get(i);
+                    }
+                    
+                    
+//                    if(i%7==6){
+//                            SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
+//                            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+//                            java.util.Date NGHT = new java.util.Date();
+//                            java.util.Date NgayT = out.parse((String.valueOf(list[4])));
+//                            java.util.Date GioT = outtime.parse((String.valueOf(list[2])));
+//                            java.util.Date NgayS = out.parse((String.valueOf(list[5])));
+//                            java.util.Date GioS = outtime.parse((String.valueOf(list[3])));
+//                        String sql = "select * from sukien where MSK = ?";
+//                        try{
+//                            
+//                            con = Connect.connect();
+//                            PreparedStatement pst = con.prepareStatement(sql);
+//                            pst.setString(1,(String.valueOf(list[0])));
+//                            ResultSet rs = pst.executeQuery();
+//                            if(rs.next()){
+//                                System.out.println("Mã sự kiện tồn tại "+list[0]);
+//                            }else{
+//
+//                               if(kTraNgayIP(NGHT, NGHT, NgayT, GioT) == false){
+//                                   System.out.println("Sự kiện này đã diễn ra rồi "+list[0]);
+//                               }else{
+//                                   if(kTraNgayIP(NgayT, GioT, NgayS, GioS) == false){
+//                                       System.out.println("Ngày sự kiện này không hợp lệ "+list[0]);
+//                                   }else{
+//                                   try {
+//                                        con = Connect.connect();
+//                                        Statement st = con.createStatement();
+//                                        String MaT = "";
+//                                        String SK = "insert into sinhvien  values('"+list[0]+"','"+list[1]+"','"+list[2]+"','"+MaT+"','"+list[3]+"','"+list[4]+"',"+ list[5]+")";
+//                                        st.executeUpdate(SK);
+//                                        con.close();
+//                                        clearTable();
+//                                        loadTable();
+//                                        JOptionPane.showMessageDialog(null, "Thành công");
+//                                        } catch (Exception ex) {
+//                                                ex.printStackTrace();
+//                                        }
+//                                   }
+//                               }
+//                               }
+//                            } catch (Exception ex) {
+//                                 JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+//                            }
+//                        
+//                    }
+//
+                }
+                
+                for(int j=0;j<7;j++){
+                        
+                        System.out.println(list[j]);   
+                    }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(QuanLiSinhVien.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(QuanLiSinhVien.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     private void Them(){
@@ -375,11 +548,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         Object tenSK = tableModel.getValueAt(i, 1);
         Object ngayBD =  tableModel.getValueAt(i, 2);
         Object gioBD = tableModel.getValueAt(i, 3);
-        Object ngayKT = tableModel.getValueAt(i, 5);
-        Object gioKT = tableModel.getValueAt(i, 4);
         Object DiaDiem = tableModel.getValueAt(i, 6);
-        SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
         String ngayGio = (String) gioBD +" Phút - Ngày "+ (String) ngayBD;
         dk.lbTenSK.setText((String) tenSK);
         dk.lbNgaySK.setText(ngayGio);
@@ -396,23 +565,6 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         txtMaSuKien.setText("");
         txtTenSuKien.setText("");
         txtDiaDiem.setText("");
-//        Date today=new Date();
-//         SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
-//
-//        
-//        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-//        Object gbd = today;
-//        Object gkt = today;
-//        Object nbd = today;
-//        Object nkt = today;
-//        String gioBD = String.valueOf(gbd);
-//        String gioKT = String.valueOf(gkt);
-//        String ngayBD = String.valueOf(nbd);
-//        String ngayKT = String.valueOf(nkt);
-//        spnGioBD.setValue(outtime.parse((String) gioBD));
-//        spnGioKT.setValue(outtime.parse((String) gioKT));
-//        spnNgayBD.setValue(out.parse((String) ngayBD));
-//        spnNgayKT.setValue(out.parse((String) ngayKT));
     }
     
  
@@ -883,6 +1035,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Ngày đã quá hạn vui lòng chọn lại");
                 }else{
                 DKSK();
+                    System.out.println("Mở DS Tham gia");
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(QuanLiSuKien.class.getName()).log(Level.SEVERE, null, ex);
@@ -891,7 +1044,12 @@ public class QuanLiSuKien extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDSThamGiaActionPerformed
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-
+        try {
+            importSK();
+            System.out.println("Mở iport SK");
+        } catch (ParseException ex) {
+            Logger.getLogger(QuanLiSuKien.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnImportActionPerformed
 
 

@@ -43,6 +43,7 @@ public class Dangkythamgia extends javax.swing.JPanel {
         loadTableCB();
         ClearTableSV();
         loadTableSV();
+        System.out.println("Đk tham gia");
 //        ClearTableDSTG();
 //        loadTableDSTG();
     }

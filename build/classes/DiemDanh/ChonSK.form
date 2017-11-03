@@ -77,13 +77,6 @@
             <Property name="columns" type="int" value="5"/>
             <Property name="rows" type="int" value="5"/>
           </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;center&gt;&lt;b style=&quot;color:red; font-size:16&quot;&gt;Ng&#xe0;y H&#x1ed9;i Vi&#x1ec7;c L&#xe0;m&lt;/b&gt; &lt;br&gt; &lt;p&gt;7:00 &#x111;&#x1ebf;n 11:00&lt;/p&gt;&lt;/center&gt; &lt;/html&gt;"/>
-              </Properties>
-            </Component>
-          </SubComponents>
         </Container>
       </SubComponents>
     </Container>

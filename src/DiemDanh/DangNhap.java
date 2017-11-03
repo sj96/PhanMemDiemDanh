@@ -15,23 +15,61 @@ import javax.swing.JOptionPane;
 
 public class DangNhap extends javax.swing.JPanel {
     form.MainForm mf;
+    QuanLiSinhVien sv = new QuanLiSinhVien();
+    QuanLiCanBo cb = new QuanLiCanBo();
     
     /**
      * Creates new form DangNhap
      */
-
+    private String MS;
+    private String MaT;
+    private String MaSK;
+    private boolean isCB = false;
+    private boolean isSV = false;
+    private boolean vao;
     public DangNhap() {
         initComponents();
+        System.out.println("Đăng nhập");
+    }
+
+    public void setVao(boolean vao) {
+        this.vao = vao;
+    }
+
+    public void setIsCB(boolean isCB) {
+        this.isCB = isCB;
+    }
+
+    public void setMaSK(String MaSK) {
+        this.MaSK = MaSK;
+    }
+    
+    public void setIsSV(boolean isSV) {
+        this.isSV = isSV;
+    }
+    
+    public void setMS(String MS){
+        this.MS = MS;
+    }
+    
+    public void setMaT(String MaT){
+        this.MaT = MaT;
     }
     
     public void setMf(form.MainForm mf){
         this.mf = mf;
     }
-
+    
+    public void setPanelSV(QuanLiSinhVien sv){
+        this.sv = sv;
+    }
+    
+    public void setPanelCB(QuanLiCanBo cb){
+        this.cb = cb;
+    }
     public void check(){
         if(txtTK.getText().equals("admin") && pswMK.getText().equals("admin")){
             mf.setisAdmin(true);
-//            JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
             mf.btnDangNhap.setText("Đăng xuất");
             mf.lbNameUser.setText("admin");
             mf.lbNameUser.setVisible(true);
@@ -39,9 +77,22 @@ public class DangNhap extends javax.swing.JPanel {
             mf.btnBaoCao.setEnabled(true);
             mf.btnQuanLiSinhVien.setEnabled(true);
             mf.resetForm();
-            mf.resetHome();
+            mf.setDN(true);
             txtTK.setText("");
             pswMK.setText("");
+            if(isSV == true){
+                sv.setVisible(true);
+                sv.loadDD(MS, MaT);
+                sv.setDL(true, MaSK, vao);
+                sv.setTextDN();
+            }else if(isCB == true){
+                cb.setVisible(true);
+                cb.loadDD(MS, MaT);
+                cb.setDL(true, MaSK, vao);
+                cb.setTextDN();
+            }else{
+                mf.resetHome();
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Sai tài khoản hoặc mật khẩu. Yêu cầu nhập lại");
             txtTK.setText("");
@@ -147,6 +198,7 @@ public class DangNhap extends javax.swing.JPanel {
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         check();
+        System.out.println(MS +" " + MaT);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
 

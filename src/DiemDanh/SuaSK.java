@@ -22,6 +22,7 @@ public class SuaSK extends javax.swing.JFrame {
      */
     public SuaSK() {
         initComponents();
+        System.out.println("Sủa sự kiện");
     }
 
     /**
@@ -206,6 +207,7 @@ public class SuaSK extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
      private QuanLiSuKien sk = new QuanLiSuKien();
@@ -353,8 +355,9 @@ public class SuaSK extends javax.swing.JFrame {
                         ql.clearTable();
                         Sua();
                         ql.loadTable();
-                        JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
                         this.dispose();
+                        JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
+                        
                     }
                     
                 }else{

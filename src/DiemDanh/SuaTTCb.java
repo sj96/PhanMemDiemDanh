@@ -6,6 +6,8 @@
 package DiemDanh;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.text.AttributeSet;
@@ -25,6 +27,7 @@ public class SuaTTCb extends javax.swing.JFrame {
         initComponents();
         txtMa.setEditable(false);
         txtMaT.setDocument(new LengthRestrictedDocument(10));
+        System.out.println("Sửa tt cán bộ");
     }
 
     /**
@@ -211,8 +214,10 @@ public class SuaTTCb extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    String NUMBER_REGEX = "^[0-9]+$";
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         QuanLiCanBo ql = new QuanLiCanBo();
         if(txtHoTen.getText().equals("")){
@@ -223,12 +228,55 @@ public class SuaTTCb extends javax.swing.JFrame {
             }else if(!txtEM.getText().matches(EMAIL_REGEX)){
                     JOptionPane.showMessageDialog(null, "Email không hợp lệ!");
                 }else{
+                if(!txtMaT.getText().equals("")){
+                    if(txtMaT.getText().matches(NUMBER_REGEX)){
+                    String sql = "select * from sinhvien where MaRFID = ?";
+                    try{
+                    con = Connect.connect();
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1,txtMaT.getText());
+
+                    ResultSet rs = pst.executeQuery();
+                    if(rs.next()){
+                        JOptionPane.showMessageDialog(null, "Mã RFID đã tồn tại!!");
+                    }else{
+                                String sql1 = "select * from canbo where MaRFID = ?";
+                        try{
+                           con = Connect.connect();
+                           PreparedStatement pst1 = con.prepareStatement(sql1);
+                           pst1.setString(1,txtMaT.getText());
+                           ResultSet rs1 = pst1.executeQuery();
+                           if(rs1.next()){
+                               JOptionPane.showMessageDialog(null, "Mã RFID đã tồn tại!!");
+                           }else{
+                                ql.clearTable();
+                                Sua();
+                                ql.loadTable();
+                                this.dispose(); 
+                                JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
+                                this.dispose(); 
+                                }
+
+                       } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                        } 
+                        }
+                       
+                }catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                }
+                }else{
+                        JOptionPane.showMessageDialog(null, "Mã RFID không hợp lệ");
+                    }
+                }else{
                     ql.clearTable();
                     Sua();
                     ql.loadTable();
-                    JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
                     this.dispose(); 
-                    }
+                    JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
+                    this.dispose();
+                }
+        }
                 
             
             }

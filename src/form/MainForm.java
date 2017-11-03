@@ -12,6 +12,10 @@ public class MainForm extends javax.swing.JFrame {
     public void setisAdmin(boolean isAdmin){
         this.isAdmin = isAdmin;
     }
+    public static boolean DN = false;
+    public void setDN(boolean DN){
+        this.DN = DN;
+    }
     public MainForm() {
         initComponents();
         lbNameUser.setVisible(false);
@@ -19,7 +23,17 @@ public class MainForm extends javax.swing.JFrame {
         dashBroad1.setVisible(true);
         baoCao11.setPanel(baoCao21);
         quanLiSuKien1.setPanel(dangkythamgia1);
+        chonSK1.setPanel(diemDanh1);
+        diemDanh1.setPanelSV(quanLiSinhVien1);
+        diemDanh1.setPanelCB(quanLiCanBo1);
+        diemDanh1.setPanelDN(dangNhap1);
+        dangNhap1.setPanelSV(quanLiSinhVien1);
+        dangNhap1.setPanelCB(quanLiCanBo1);
+        quanLiSinhVien1.setPanel(diemDanh1);
+        quanLiCanBo1.setPanel(diemDanh1);
         dangNhap1.setMf(this);
+        btnDangNhap.setFocusable(false);
+        btnHome.setFocusable(false);
     }
     
     public void resetForm(){
@@ -257,30 +271,36 @@ public class MainForm extends javax.swing.JFrame {
         resetForm();
         if(!isAdmin){
             quanLiSuKien_user1.setVisible(true);
+            System.out.println("Form sự kiện của user");
         }
         else {
             quanLiSuKien1.setVisible(true);
+            System.out.println("Form sự kiện của admin");
         }
     }//GEN-LAST:event_btnDanhSachSuKienActionPerformed
 
     private void btnDiemDanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiemDanhActionPerformed
         resetForm();
-        chonSK1.setVisible(true);        
+        chonSK1.setVisible(true);  
+        System.out.println("Form điểm danh");
     }//GEN-LAST:event_btnDiemDanhActionPerformed
 
     private void btnQuanLiCanBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLiCanBoActionPerformed
         resetForm();
         quanLiCanBo1.setVisible(true);
+        System.out.println("Form QL cán bộ");
     }//GEN-LAST:event_btnQuanLiCanBoActionPerformed
 
     private void btnQuanLiSinhVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLiSinhVienActionPerformed
         resetForm();
         quanLiSinhVien1.setVisible(true);
+        System.out.println("Form SL sinh viên");
     }//GEN-LAST:event_btnQuanLiSinhVienActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         resetForm();
         dashBroad1.setVisible(true);
+        System.out.println("FormHome");
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
@@ -289,9 +309,11 @@ public class MainForm extends javax.swing.JFrame {
             dangNhap1.setVisible(true);
 //            dangNhap1.getRootPane().setDefaultButton(dangNhap1.btnDangNhap);
             lbNameUser.setText("admin");
+            System.out.println("Đăng nhập");
         }
         else {
             isAdmin = false;
+            DN = false;
             lbNameUser.setVisible(false);
             btnDangNhap.setText("Đăng Nhập");
             btnBaoCao.setEnabled(false);
@@ -299,8 +321,7 @@ public class MainForm extends javax.swing.JFrame {
             btnQuanLiSinhVien.setEnabled(false);
             resetForm();
             dashBroad1.setVisible(true);
-//            quanLiSuKien_user1.clearTable();
-//            quanLiSuKien_user1.loadTable();
+            System.out.println("Đã đăng xuất");
             try {
                 quanLiSuKien_user1.loadTableDate();
             } catch (ParseException ex) {

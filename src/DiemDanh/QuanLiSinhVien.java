@@ -39,17 +39,20 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author trana
  */
 public class QuanLiSinhVien extends javax.swing.JPanel {
-
+    
     /**
      * Creates new form QuanLiSuKien
      */
+    
+    
     public QuanLiSinhVien() {
         initComponents();
 //        cbbNganh.setEnabled(false);
-        ClearTable();
+        clearTable();
         loadTable();
         spnK.setValue(40);
         txtMaT.setDocument(new LengthRestrictedDocument(10));
+        System.out.println("QL SV");
     }
 
     /**
@@ -87,6 +90,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         btnImport = new javax.swing.JButton();
+        btnSua1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1000, 511));
@@ -95,25 +99,18 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
 
         tblSV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "", "Mssv", "Họ tên", "Khoa", "Ngành", "Khóa", "Mã số thẻ"
+                "Mssv", "Họ tên", "Khoa", "Ngành", "Khóa", "Mã số thẻ"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -126,10 +123,6 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tblSV);
-        if (tblSV.getColumnModel().getColumnCount() > 0) {
-            tblSV.getColumnModel().getColumn(0).setMinWidth(30);
-            tblSV.getColumnModel().getColumn(0).setMaxWidth(30);
-        }
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -350,6 +343,15 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        btnSua1.setBackground(new java.awt.Color(51, 153, 255));
+        btnSua1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua1.setText("Đăng ký thẻ");
+        btnSua1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSua1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -363,8 +365,10 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(14, 14, 14)
                         .addComponent(btnXoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSua1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
@@ -382,9 +386,10 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                             .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnTim)
                             .addComponent(btnSua)
-                            .addComponent(btnXoa))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
+                            .addComponent(btnXoa)
+                            .addComponent(btnSua1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
@@ -392,8 +397,53 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-        private void nganhKhoa(){
+    private boolean DD = false;
+    private String MaSK;
+    private boolean vao;
+    DiemDanh dd;
+    public void setDL(boolean DD, String MaSK, boolean vao) {
+        this.DD = DD;
+        this.MaSK = MaSK;
+        this.vao = vao;
+    }
+    
+    public void setPanel(DiemDanh dd){
+            this.dd = dd;
+    }
+    
+    public void loadDD(String MS, String RFID){
+        txtMa.setText(MS);
+        txtMaT.setText(RFID);
+        txtMa.setEditable(false);
+        txtMaT.setEditable(false);
+    }
+    SimpleDateFormat f = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+    java.util.Date date = new java.util.Date();
+    SimpleDateFormat ff = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private void DiemDanh(){
+        try {
+            con = Connect.connect();
+            Statement s = con.createStatement();
+            String sql = "SELECT * FROM `sinhvien` where `MSSV` = '"+txtMa.getText()+"' ";
+            ResultSet rs = s.executeQuery(sql);
+            if(rs.next()){ 
+                if(vao == true){
+                    dd.loadTT(rs.getString("HoTenSV"), rs.getString("MSSV"), rs.getString("NganhHoc"), f.format(date), null, true,"vào");
+                    dd.DDVao(txtMa.getText(), ff.format(date));
+                }else{
+                    dd.loadTT(rs.getString("HoTenSV"), rs.getString("MSSV"), rs.getString("NganhHoc"), null, f.format(date), true,"ra");
+                    dd.DDRa(txtMa.getText(), ff.format(date));
+                }
+                JOptionPane.showMessageDialog(null, "Thêm sinh viên và điểm danh thành công");
+                dd.txtID.setText("");
+            }
+            con.close();
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
+    }
+    
+    private void nganhKhoa(){
         if(cbbKhoa.getSelectedItem().equals("Khoa Công nghệ")){
             cbbNganh.removeAllItems();
             cbbNganh.addItem("Công nghệ kỹ thuật hóa học");
@@ -535,7 +585,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
             return false;
         }
     };
-         private Connection con = null;
+    private Connection con = null;
     public void loadTable(){
          try {
             con = Connect.connect();
@@ -563,16 +613,6 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         }
     } 
     
-    private void ClearTable(){
-        int dem = tblSV.getRowCount();
-        try{
-        while (dem > 0 ){
-            tableModel.removeRow(0);
-        }
-        }catch(java.lang.ArrayIndexOutOfBoundsException e){
-            e.getMessage();
-        }
-    }
   
     private void Them(){
             try {
@@ -691,7 +731,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                         String SK = "insert into sinhvien  values('"+list[0]+"','"+list[1]+"','"+list[2]+"','"+MaT+"','"+list[3]+"','"+list[4]+"',"+ list[5]+")";
                         st.executeUpdate(SK);
                         con.close();
-                        ClearTable();
+                        clearTable();
                         loadTable();
                         JOptionPane.showMessageDialog(null, "Thành công");
                         } catch (Exception ex) {
@@ -707,8 +747,6 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                     }
 //                    System.out.println(l.get(i) + "");
                 }
-                
-                
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(QuanLiSinhVien.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -723,7 +761,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
     }//GEN-LAST:event_cbbKhoaItemStateChanged
 
     String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-    
+    String NUMBER_REGEX = "^[0-9]+$";
     private void btnTaoSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoSVActionPerformed
         if(txtMa.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Mã sinh viên không được trống!");
@@ -741,22 +779,72 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                    con = Connect.connect();
                    PreparedStatement pst = con.prepareStatement(sql);
                    pst.setString(1,txtMa.getText());
-
                    ResultSet rs = pst.executeQuery();
                    if(rs.next()){
                        JOptionPane.showMessageDialog(null, "Mã sinh viên đã tồn tại!!");
                    }else{
-                      
-                           Them();
-                           ClearTable();
-                           loadTable();
-                           JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
-                           textRong();
-                        }
-                       
-               } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
-                }
+                       if(!txtMaT.getText().equals("")){
+                           if(txtMaT.getText().matches(NUMBER_REGEX)){
+                               String sql2 = "select * from sinhvien where MaRFID = ?";
+                                try{
+                                    con = Connect.connect();
+                                    PreparedStatement pst2 = con.prepareStatement(sql2);
+                                    pst2.setString(1,txtMaT.getText());
+
+                                    ResultSet rs2 = pst2.executeQuery();
+                                    if(rs2.next()){
+                                        JOptionPane.showMessageDialog(null, "Mã RFID đã tồn tại!!");
+                                    }else{
+                                        String sql1 = "select * from canbo where MaRFID = ?";
+                                        try{
+                                            con = Connect.connect();
+                                            PreparedStatement pst1 = con.prepareStatement(sql1);
+                                            pst1.setString(1,txtMaT.getText());
+                                            ResultSet rs1 = pst1.executeQuery();
+                                            if(rs1.next()){
+                                                JOptionPane.showMessageDialog(null, "Mã RFID đã tồn tại!!");
+                                            }else{
+                                                if(DD == false){
+                                                    Them();
+                                                    clearTable();
+                                                    loadTable();
+                                                    JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
+                                                    textRong();
+                                                }else if(DD == true){
+                                                    Them();
+                                                    txtMa.setEditable(true);
+                                                    txtMaT.setEditable(true);
+                                                    this.setVisible(false);
+                                                    dd.loadSK(MaSK);
+                                                    clearTable();
+                                                    loadTable();
+                                                    dd.setVisible(true);
+                                                    DD = false;
+                                                    DiemDanh();
+                                                }
+                                            }
+                                        }catch (Exception ex) {
+                                             JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                                        }
+                                    }
+                                }catch (Exception ex) {
+                                     JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                                }
+                           }else{
+                               JOptionPane.showMessageDialog(null, "Mã RFID không hợp lệ");
+                           }
+                       }else{
+                            Them();
+                            clearTable();
+                            loadTable();
+                            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công!");
+                            textRong();
+                       }
+                            
+                   }
+                            } catch (Exception ex) {
+                                 JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                             }
                     
                 }
             }
@@ -803,15 +891,26 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         }
      }
     
+    public void setTextDN(){
+        txtEM.setText("");
+        txtHoTen.setText("");
+        cbbKhoa.setSelectedIndex(0);
+        cbbNganh.setSelectedIndex(0);
+        spnK.setValue(40);
+    }
 
     private void tblSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSVMouseClicked
-        loadText();
+        if(DD == true){
+            System.out.println("Khong load text");
+        }else{
+            loadText();
+        }
         
     }//GEN-LAST:event_tblSVMouseClicked
 
     private void txtTimFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimFocusGained
         txtTim.setText("");
-        ClearTable();
+        clearTable();
         loadTable();
     }//GEN-LAST:event_txtTimFocusGained
 
@@ -819,14 +918,14 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         if(txtTim.getText().equals("")){
            JOptionPane.showMessageDialog(null, "Tìm kiếm không được trống");
         }else{
-            ClearTable();
+            clearTable();
             Tim();
             int Count = tblSV.getRowCount();
             if(Count == 0){
                 JOptionPane.showMessageDialog(null, "Không tìm được dữ liệu này!");
-                ClearTable();
+                clearTable();
             }else{
-                ClearTable();
+                clearTable();
                 Tim();
                 JOptionPane.showMessageDialog(null, "Tìm kiếm dữ liệu thành công!");
            }
@@ -842,7 +941,7 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
             if(n == JOptionPane.YES_OPTION){
                 Xoa();
                 JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công!");
-                ClearTable();
+                clearTable();
                 loadTable();
                 textRong();
             }else 
@@ -904,10 +1003,29 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
         importSV();
     }//GEN-LAST:event_btnImportActionPerformed
 
+    private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
+        int i = tblSV.getSelectedRow();
+        Object Ma = tableModel.getValueAt(i, 0);
+        Object MaT = tableModel.getValueAt(i, 6);
+        if(i == -1){
+            JOptionPane.showMessageDialog(null, "Chọn dữ liệu trước khi sửa!");
+        }else{
+            if(MaT.equals("")){
+                CapNhatTheSV c = new CapNhatTheSV(this, (String) Ma);
+                c.setVisible(true);
+                System.out.println("Hiện form cập nhật thẻ");
+            }else{
+                JOptionPane.showMessageDialog(null, "Người này đã có RFID");
+            }
+            
+       }
+    }//GEN-LAST:event_btnSua1ActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnSua1;
     private javax.swing.JButton btnTaoSV;
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoa;
@@ -929,8 +1047,8 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
     private javax.swing.JTable tblSV;
     private javax.swing.JTextField txtEM;
     private javax.swing.JTextField txtHoTen;
-    private javax.swing.JTextField txtMa;
-    private javax.swing.JTextField txtMaT;
+    public javax.swing.JTextField txtMa;
+    public javax.swing.JTextField txtMaT;
     private javax.swing.JTextField txtTim;
     // End of variables declaration//GEN-END:variables
 }

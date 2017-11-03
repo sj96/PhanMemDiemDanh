@@ -16,6 +16,7 @@ public class DashBoard extends javax.swing.JPanel {
      */
     public DashBoard() {
         initComponents();
+        System.out.println("DashBoard");
     }
 
     /**
