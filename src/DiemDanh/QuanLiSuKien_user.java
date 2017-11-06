@@ -42,7 +42,7 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
         btnTimKiem.setEnabled(false);
 //        setRows(tblSuKien, txtMa.getText());
         System.out.println("QL SK user");
-//        getNewRenderedTable(tblSuKien);
+        getNewRenderedTable(tblSuKien);
     }
       
     private static DefaultTableModel tableModel = new DefaultTableModel(){
@@ -54,18 +54,20 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
     };
     
     private static final int STATUS_COL = 0;
-    private static JTable getNewRenderedTable(final JTable table,String MaSK) {
+    private static JTable getNewRenderedTable(final JTable table) {
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
             @Override
             public Component getTableCellRendererComponent(JTable table,
                     Object value, boolean isSelected, boolean hasFocus, int row, int col) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-                String status = (String)table.getModel().getValueAt(row, 0);
                 
-                
-                if (MaSK.equals(status)) {
-                    setBackground(Color.BLACK);
-                    setForeground(Color.WHITE);
+                String avalue = String.valueOf(value);
+                if(avalue.equals("Đã đăng ký")){
+                   setBackground(Color.decode("#FF8C00"));
+                   setForeground(Color.WHITE);
+                }else{
+                    setBackground(table.getBackground());
+                    setForeground(table.getForeground());
                 }
 //                } else {
 //                    setBackground(table.getBackground());
@@ -86,7 +88,6 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
             ResultSet rs = s.executeQuery(sql);
             while(rs.next()){ 
                 
-                getNewRenderedTable(table, rs.getString("MaSK"));
                 System.out.println(rs.getString("MaSK"));
             }
             con.close();
@@ -196,15 +197,13 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
             SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");
             con = Connect.connect();
-            
             Statement s = con.createStatement();
-            
             ResultSet rs = s.executeQuery("SELECT * FROM sukien");
-            String []colsName = {"Mã sự kiện", "Tên sự kiện","Ngày BĐ","Thời gian BĐ","Thời gian KT","Ngày KT","Địa điểm"};
+            String []colsName = {"Mã sự kiện", "Tên sự kiện","Ngày BĐ","Thời gian BĐ","Thời gian KT","Ngày KT","Địa điểm","Trạng thái"};
             tableModel.setColumnIdentifiers(colsName); 
             tblSuKien.setModel(tableModel);
             while(rs.next()){ 
-                Object rows[] = new Object[7];
+                Object rows[] = new Object[8];
                 rows[0] = rs.getString(1);
                 rows[1] = rs.getString(2);  
                 rows[2] = formater.format(rs.getDate(5));
@@ -212,6 +211,13 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
                 rows[4] = format.format(rs.getTime(4));
                 rows[5] =formater.format(rs.getDate(6));
                 rows[6] = rs.getString(7);
+                Statement s1 = con.createStatement();
+                ResultSet rs1 = s1.executeQuery("select * from sukien s JOIN dangky d on s.MSK = d.MaSK WHERE d.ms = '"+txtMa.getText()+"' and MaSK = '"+rs.getString(1)+"'");
+                if(rs1.next()){
+                    rows[7] = "Đã đăng ký";
+                }else{
+                    rows[7] = "Chưa đăng ký";
+                }
                 tableModel.addRow(rows);
             }
             con.close();
@@ -578,6 +584,13 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
                 }
         }
+        clearTable();
+        loadTable();
+        try {
+            loadTableDate();
+        } catch (ParseException ex) {
+            Logger.getLogger(QuanLiSuKien_user.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDangKyActionPerformed
 
     private void btnKiemTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKiemTraActionPerformed
@@ -635,6 +648,13 @@ public class QuanLiSuKien_user extends javax.swing.JPanel {
                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
                 }
+        }
+        clearTable();
+        loadTable();
+        try {
+            loadTableDate();
+        } catch (ParseException ex) {
+            Logger.getLogger(QuanLiSuKien_user.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnHuyDangKyActionPerformed
 

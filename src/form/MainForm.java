@@ -281,7 +281,9 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnDiemDanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiemDanhActionPerformed
         resetForm();
-        chonSK1.setVisible(true);  
+        chonSK1.setVisible(true); 
+        chonSK1.cleardata();
+        chonSK1.loadData();
         System.out.println("Form điểm danh");
     }//GEN-LAST:event_btnDiemDanhActionPerformed
 

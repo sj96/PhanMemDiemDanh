@@ -714,38 +714,34 @@ public class QuanLiSinhVien extends javax.swing.JPanel {
                     }
                     
                     if(i%6==5){
-                        
-                         String sql = "select * from sinhvien where MSSV = ?";
-                try{
-                   con = Connect.connect();
-                   PreparedStatement pst = con.prepareStatement(sql);
-                   pst.setString(1,(String.valueOf(list[0])));
-                   ResultSet rs = pst.executeQuery();
-                   if(rs.next()){
-                       System.out.println("Mã sinh viên tồn tại "+list[0]);
-                   }else{
-                        try {
+                        String sql = "select * from sinhvien where MSSV = ?";
+                        try{
                         con = Connect.connect();
-                        Statement st = con.createStatement();
-                        String MaT = "";
-                        String SK = "insert into sinhvien  values('"+list[0]+"','"+list[1]+"','"+list[2]+"','"+MaT+"','"+list[3]+"','"+list[4]+"',"+ list[5]+")";
-                        st.executeUpdate(SK);
-                        con.close();
-                        clearTable();
-                        loadTable();
-                        JOptionPane.showMessageDialog(null, "Thành công");
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1,(String.valueOf(list[0])));
+                        ResultSet rs = pst.executeQuery();
+                        if(rs.next()){
+                            System.out.println("Mã sinh viên tồn tại "+list[0]);
+                        }else{
+                            try {
+                            con = Connect.connect();
+                            Statement st = con.createStatement();
+                            String MaT = "";
+                            String SK = "insert into sinhvien  values('"+list[0]+"','"+list[1]+"','"+list[2]+"','"+MaT+"','"+list[3]+"','"+list[4]+"',"+ list[5]+")";
+                            st.executeUpdate(SK);
+                            con.close();
+                            clearTable();
+                            loadTable();
+                            JOptionPane.showMessageDialog(null, "Thành công");
+                            } catch (Exception ex) {
+                                    ex.printStackTrace();
+                            }
+                        }
                         } catch (Exception ex) {
-    //                            System.out.println("MSSV trùng " + list[0]);
-                                ex.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
                         }
-                           
-                        }
-                    } catch (Exception ex) {
-                         JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
-                    }
                         
                     }
-//                    System.out.println(l.get(i) + "");
                 }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(QuanLiSinhVien.class.getName()).log(Level.SEVERE, null, ex);

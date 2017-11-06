@@ -115,6 +115,21 @@ public class DiemDanh extends javax.swing.JPanel {
     }
     private Connection con = null;
     SimpleDateFormat f = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+    
+    private void kDangKy(String MaDK, String MSK, String MS){
+        try {
+            con = Connect.connect();
+            Statement st = con.createStatement();
+            String SK = "insert into kdangky  values('"+MaDK+"','"+MSK+"','"+MS+"')";
+            st.executeUpdate(SK);
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+     }
+    
+    
+    
     private void Tim(){
         java.util.Date date = new java.util.Date();
         SimpleDateFormat ff = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -136,6 +151,7 @@ public class DiemDanh extends javax.swing.JPanel {
                     DDVao(rs.getString("MSSV"), ff.format(date));
                     JOptionPane.showMessageDialog(null, "Điểm danh SV thành công");
                     txtID.setText("");
+
                 }
             }else{
                 Statement s1 = con.createStatement();
@@ -196,6 +212,15 @@ public class DiemDanh extends javax.swing.JPanel {
             Statement st = con.createStatement();
             String vao = "insert into diemdanh (MaDK, DiemDanhVao)  values('"+MaSK+MS+"','"+GioVao+"')";
             st.executeUpdate(vao);
+            Statement s2 = con.createStatement();
+            String sql2 = "SELECT * FROM `dangky` where `MaDK` = '"+MaSK+MS+"'";
+            ResultSet rs2 = s2.executeQuery(sql2);
+            if(!rs2.next()){
+                kDangKy(MaSK+MS, MaSK, MS);
+                System.out.println("Người này không đăng ký");
+            }else{
+                System.out.println("Người này có đăng ký");
+            }
             con.close();
         } catch (Exception ex) {}
     }
@@ -215,6 +240,15 @@ public class DiemDanh extends javax.swing.JPanel {
                 Statement st = con.createStatement();
                 String ra = "insert into diemdanh (MaDK, DiemDanhRa) values('"+MaSK+MS+"','"+GioRa+"')";
                 st.executeUpdate(ra);
+                Statement s1 = con.createStatement();
+                String sql1 = "SELECT * FROM `dangky` where `MaDK` = '"+MaSK+MS+"' ";
+                ResultSet rs1 = s1.executeQuery(sql1);
+                if(!rs1.next()){
+                    kDangKy(MaSK+MS, MaSK, MS);
+                    System.out.println("Người này không đăng ký");
+                }else{
+                    System.out.println("Người này có đăng ký");
+                }
             }
             con.close();
         } catch (Exception ex) {}

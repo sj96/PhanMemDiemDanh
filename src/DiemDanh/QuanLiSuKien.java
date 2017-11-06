@@ -21,6 +21,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -46,6 +47,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class QuanLiSuKien extends javax.swing.JPanel {
     Dangkythamgia dk;
+    ChonSK csk;
     
     public QuanLiSuKien() {
         initComponents();
@@ -79,7 +81,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
             Statement s = con.createStatement();
             
             ResultSet rs = s.executeQuery("SELECT * FROM sukien");
-            String []colsName = {"Mã sự kiện", "Tên sự kiện","Ngày BĐ","Thời gian BĐ","Thời gian KT","Ngày KT","Địa điểm"};
+            String []colsName = {"Mã sự kiện", "Tên sự kiện","Ngày BĐ","Thời gian BĐ","Ngày KT","Thời gian KT","Địa điểm"};
             tableModel.setColumnIdentifiers(colsName); 
             tblSuKien.setModel(tableModel);
             while(rs.next()){ 
@@ -88,8 +90,8 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                 rows[1] = rs.getString(2);  
                 rows[2] = formater.format(rs.getDate(5));
                 rows[3] = format.format(rs.getTime(3));
-                rows[4] = format.format(rs.getTime(4));
-                rows[5] =formater.format(rs.getDate(6));
+                rows[5] = format.format(rs.getTime(4));
+                rows[4] =formater.format(rs.getDate(6));
                 rows[6] = rs.getString(7);
                 tableModel.addRow(rows);
             }
@@ -135,8 +137,8 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         Object tenSK = tableModel.getValueAt(i, 1);
         Object ngayBD =  tableModel.getValueAt(i, 2);
         Object gioBD = tableModel.getValueAt(i, 3);
-        Object ngayKT = tableModel.getValueAt(i, 5);
-        Object gioKT = tableModel.getValueAt(i, 4);
+        Object ngayKT = tableModel.getValueAt(i, 4);
+        Object gioKT = tableModel.getValueAt(i, 5);
         Object diaDiem = tableModel.getValueAt(i, 6);
         
         SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
@@ -357,6 +359,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
     }
     
     private void importSK() throws ParseException{
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         Object[] list = new Object[7];
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(".XLSX files", "xlsx");
@@ -366,6 +369,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         {
             File file = fileChooser.getSelectedFile();
             Vector cellVectorHolder = new Vector();
+            Calendar time = Calendar.getInstance();
             try {
                 List l = new ArrayList();
                 // get file
@@ -386,7 +390,29 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                     while (iterCell.hasNext())
                     {
                         Cell c = iterCell.next();
-                        l.add(c);
+                        
+                        if (c.getCellType() == Cell.CELL_TYPE_STRING)
+                            {
+                                
+                                l.add(c);
+                            }
+                            else
+                            {
+                                if (c.getDateCellValue() != null)
+                                {   
+                                    time.setTime(c.getDateCellValue());
+                                    if(time.get(Calendar.YEAR) == 1899){
+                                    String t = time.get(Calendar.HOUR_OF_DAY) +":"+time.get(Calendar.MINUTE);
+                                    l.add(t);
+                                    }else{
+                                        int t = time.get(Calendar.MONTH) + 1;
+                                        String d = time.get(Calendar.YEAR)+"/"+t+"/"+time.get(Calendar.DATE);
+                                        l.add(d);
+                                    }
+                                   
+                                }
+                            }
+                        
                     }
                     cellVectorHolder.addElement(l);
                 }
@@ -402,67 +428,43 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                         list[3] = l.get(i);
                     }else if(i%7==4){
                         list[4] = l.get(i);
-                        System.out.println(list[4]);
                     }else if(i%7==5){
                         list[5] = l.get(i);
                     }else if(i%7==6){
                         list[6] = l.get(i);
                     }
                     
-                    
-//                    if(i%7==6){
-//                            SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
-//                            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-//                            java.util.Date NGHT = new java.util.Date();
-//                            java.util.Date NgayT = out.parse((String.valueOf(list[4])));
-//                            java.util.Date GioT = outtime.parse((String.valueOf(list[2])));
-//                            java.util.Date NgayS = out.parse((String.valueOf(list[5])));
-//                            java.util.Date GioS = outtime.parse((String.valueOf(list[3])));
-//                        String sql = "select * from sukien where MSK = ?";
-//                        try{
-//                            
-//                            con = Connect.connect();
-//                            PreparedStatement pst = con.prepareStatement(sql);
-//                            pst.setString(1,(String.valueOf(list[0])));
-//                            ResultSet rs = pst.executeQuery();
-//                            if(rs.next()){
-//                                System.out.println("Mã sự kiện tồn tại "+list[0]);
-//                            }else{
-//
-//                               if(kTraNgayIP(NGHT, NGHT, NgayT, GioT) == false){
-//                                   System.out.println("Sự kiện này đã diễn ra rồi "+list[0]);
-//                               }else{
-//                                   if(kTraNgayIP(NgayT, GioT, NgayS, GioS) == false){
-//                                       System.out.println("Ngày sự kiện này không hợp lệ "+list[0]);
-//                                   }else{
-//                                   try {
-//                                        con = Connect.connect();
-//                                        Statement st = con.createStatement();
-//                                        String MaT = "";
-//                                        String SK = "insert into sinhvien  values('"+list[0]+"','"+list[1]+"','"+list[2]+"','"+MaT+"','"+list[3]+"','"+list[4]+"',"+ list[5]+")";
-//                                        st.executeUpdate(SK);
-//                                        con.close();
-//                                        clearTable();
-//                                        loadTable();
-//                                        JOptionPane.showMessageDialog(null, "Thành công");
-//                                        } catch (Exception ex) {
-//                                                ex.printStackTrace();
-//                                        }
-//                                   }
-//                               }
-//                               }
-//                            } catch (Exception ex) {
-//                                 JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
-//                            }
-//                        
-//                    }
-//
+                    if(i%7==6){
+                        String sql = "select * from sukien where MSK = ?";
+                        try{
+                        con = Connect.connect();
+                        PreparedStatement pst = con.prepareStatement(sql);
+                        pst.setString(1,(String.valueOf(list[0])));
+                        ResultSet rs = pst.executeQuery();
+                        if(rs.next()){
+                            System.out.println("Mã sự kiện tồn tại "+list[0]);
+                        }else{
+                            try {
+                            con = Connect.connect();
+                            Statement st = con.createStatement();
+                            String SK = "insert into sukien  values('"+list[0]+"','"+list[1]+"','"+list[2]+"','"+list[3]+"','"+list[4]+"','"+list[5]+"','"+ list[6]+"')";
+                            st.executeUpdate(SK);
+                            con.close();
+                            clearTable();
+                            loadTable();
+                            } catch (Exception ex) {
+                                    ex.printStackTrace();
+                            }
+                            JOptionPane.showMessageDialog(null, "Thành công");
+                        }
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                        }
+                        
+                    }
                 }
                 
-                for(int j=0;j<7;j++){
-                        
-                        System.out.println(list[j]);   
-                    }
+                
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(QuanLiSinhVien.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -483,6 +485,8 @@ public class QuanLiSuKien extends javax.swing.JPanel {
             String TGKT =  format.format(spnGioKT.getValue());
             String NgayBD =  formater.format(spnNgayBD.getValue());
             String NgayKT = formater.format(spnNgayKT.getValue());
+            String bd = TGBD + " "+ NgayBD;
+            String kt = TGKT + " "+ NgayKT;
             String DiaDiem = txtDiaDiem.getText();
             String SK = "insert into sukien  values('"+Ma+"','"+Ten+"','"+TGBD+"','"+TGKT+"','"+NgayBD+"','"+NgayKT+"','"+DiaDiem+"')";
             st.executeUpdate(SK);
@@ -507,8 +511,8 @@ public class QuanLiSuKien extends javax.swing.JPanel {
                 rows[1] = rs.getString(2);  
                 rows[2] = formater.format(rs.getDate(5));
                 rows[3] = format.format(rs.getTime(3));
-                rows[4] = format.format(rs.getTime(4));
-                rows[5] =formater.format(rs.getDate(6));
+                rows[5] = format.format(rs.getTime(4));
+                rows[4] =formater.format(rs.getDate(6));
                 rows[6] = rs.getString(7);
                 tableModel.addRow(rows);
             }
@@ -524,8 +528,8 @@ public class QuanLiSuKien extends javax.swing.JPanel {
         Object tenSK = tableModel.getValueAt(i, 1);
         Object ngayBD =  tableModel.getValueAt(i, 2);
         Object gioBD = tableModel.getValueAt(i, 3);
-        Object ngayKT = tableModel.getValueAt(i, 5);
-        Object gioKT = tableModel.getValueAt(i, 4);
+        Object ngayKT = tableModel.getValueAt(i, 4);
+        Object gioKT = tableModel.getValueAt(i, 5);
         Object diaDiem = tableModel.getValueAt(i, 6);
         SuaSK s = new SuaSK();
         SimpleDateFormat outtime = new SimpleDateFormat("HH:mm");
@@ -973,7 +977,7 @@ public class QuanLiSuKien extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemFocusGained
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-         int i = tblSuKien.getSelectedRow();
+        int i = tblSuKien.getSelectedRow();
         if(i == -1){
             JOptionPane.showMessageDialog(null, "Chọn dữ liệu trước khi sửa!");
         }else{

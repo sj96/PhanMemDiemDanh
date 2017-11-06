@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
  * @author LongTran
  */
 public class ThemMSSV extends javax.swing.JFrame {
+    
     DiemDanh d;
     MainForm mf = new MainForm();
     DangNhap dn;
@@ -34,6 +35,7 @@ public class ThemMSSV extends javax.swing.JFrame {
     public ThemMSSV() {
         initComponents();
         rdoSV.setSelected(true);
+        setTitle("Gán mã số");
     }
     
     public ThemMSSV(DiemDanh d, String RFID, boolean vao,String MaSK){
@@ -181,7 +183,8 @@ public class ThemMSSV extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gán mã số");
 
         jLabel1.setText("Mã số");
 

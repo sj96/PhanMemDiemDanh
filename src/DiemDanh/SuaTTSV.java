@@ -55,7 +55,7 @@ public class SuaTTSV extends javax.swing.JFrame {
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sửa thông tin sinh viên");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -231,17 +231,21 @@ public class SuaTTSV extends javax.swing.JFrame {
                 }else{
                 if(!txtMaT.getText().equals("")){
                     if(txtMaT.getText().matches(NUMBER_REGEX)){
-                    String sql = "select * from sinhvien where MaRFID = ?";
+                    String sql = "select * from sinhvien where MaRFID = ? and MSSV = '"+txtMa.getText()+"'";
                     try{
-                   con = Connect.connect();
-                   PreparedStatement pst = con.prepareStatement(sql);
-                   pst.setString(1,txtMaT.getText());
-
-                   ResultSet rs = pst.executeQuery();
-                   if(rs.next()){
-                       JOptionPane.showMessageDialog(null, "Mã RFID đã tồn tại!!");
-                   }else{
-                         String sql1 = "select * from canbo where MaRFID = ?";
+                    con = Connect.connect();
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1,txtMaT.getText());
+                    ResultSet rs = pst.executeQuery();
+                    if(rs.next()){
+                        ql.clearTable();
+                        Sua();
+                        ql.loadTable();
+                        this.dispose(); 
+                        JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
+                        this.dispose(); 
+                    }else{
+                        String sql1 = "select * from sinhvien where MaRFID = ?";
                            try{
                            con = Connect.connect();
                            PreparedStatement pst1 = con.prepareStatement(sql1);
@@ -250,12 +254,25 @@ public class SuaTTSV extends javax.swing.JFrame {
                            if(rs1.next()){
                                JOptionPane.showMessageDialog(null, "Mã RFID đã tồn tại!!");
                            }else{
-                                ql.clearTable();
-                                Sua();
-                                ql.loadTable();
-                                this.dispose(); 
-                                JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
-                                this.dispose(); 
+                                String sql2 = "select * from canbo where MaRFID = ?";
+                                    try{
+                                    con = Connect.connect();
+                                    PreparedStatement pst2 = con.prepareStatement(sql2);
+                                    pst2.setString(1,txtMaT.getText());
+                                    ResultSet rs2 = pst2.executeQuery();
+                                    if(rs2.next()){
+                                        JOptionPane.showMessageDialog(null, "Mã RFID đã tồn tại!!");
+                                    }else{
+                                         ql.clearTable();
+                                         Sua();
+                                         ql.loadTable();
+                                         this.dispose(); 
+                                         JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công!");
+                                         this.dispose(); 
+                                         }
+                                 }catch (Exception ex) {
+                                      JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");
+                                  } 
                                 }
                         }catch (Exception ex) {
                              JOptionPane.showMessageDialog(null, "Kết nối cơ sở dũ liệu thất bại!! :(");

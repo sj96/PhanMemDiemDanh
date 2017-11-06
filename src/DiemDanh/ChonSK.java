@@ -59,7 +59,10 @@ public class ChonSK extends javax.swing.JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
+    }
+    
+    public void cleardata(){
+        jPanel2.removeAll();
     }
     
     public void add_btn_sk(String id, String name, String startTime, String endTime){
@@ -91,7 +94,7 @@ public class ChonSK extends javax.swing.JPanel {
 //                System.out.println(id);
             }
         });
-
+        
         jPanel2.add(sk);        
     } 
     
